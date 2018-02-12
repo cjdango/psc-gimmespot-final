@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
+import { RegisterPage } from '../register/register';
 
 @IonicPage()
 @Component({
@@ -16,10 +17,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    this.navCtrl.push(RegisterPage)
   }
 
 }

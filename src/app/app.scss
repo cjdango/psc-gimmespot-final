@@ -18,3 +18,18 @@
 ion-item.item-input {
     padding-left: 0;
 }
+
+#container {
+    padding: 58px;
+}
+
+#login-register-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .button-md {
+        text-transform: none;
+    }
+}

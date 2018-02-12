@@ -1,0 +1,21 @@
+page-login {
+
+    #or-divider {
+        margin: 1rem auto;
+    }
+
+    #container {
+        padding: 58px;
+    }
+
+    #register-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        button {
+            height: fit-content;
+        }
+    }
+}

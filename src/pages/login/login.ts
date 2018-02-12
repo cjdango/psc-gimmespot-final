@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { RegisterPage } from '../register/register';
+import { TabPage } from '../tab/tab';
 
 @Component({
   selector: 'page-login',
@@ -15,7 +15,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    this.navCtrl.push(RegisterPage)
+    this.navCtrl.push(TabPage)
   }
 
 }

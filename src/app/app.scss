@@ -33,3 +33,8 @@ ion-item.item-input {
         text-transform: none;
     }
 }
+
+// Fix grey lines
+::-webkit-scrollbar {
+    display: none;
+}

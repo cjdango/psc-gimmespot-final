@@ -8,9 +8,9 @@
 
   <ion-navbar mode="ios">
     <ion-buttons start>
-        <button ion-button icon-only>
-            <ion-icon name="menu"></ion-icon>
-          </button>
+      <button ion-button icon-only>
+        <ion-icon name="menu"></ion-icon>
+      </button>
     </ion-buttons>
     <ion-title>Gimme Spot</ion-title>
   </ion-navbar>
@@ -20,7 +20,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item mode="md">
+    <button ion-item mode="md">
       <ion-thumbnail item-start>
         <img src="https://placeimg.com/400/400/people">
       </ion-thumbnail>
@@ -28,11 +28,13 @@
       <ion-note>Owner</ion-note>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, reiciendis.</p>
       <div id="item-end" item-end>
-        <ion-note color="secondary">₱10</ion-note>
-        <button ion-button clear>View</button>
+        <h1 ion-text color="secondary">₱10</h1>
+        <span>
+          <ion-badge>93</ion-badge> Reviews
+        </span>
       </div>
-    </ion-item>
-    <ion-item mode="md">
+    </button>
+    <button ion-item mode="md">
       <ion-thumbnail item-start>
         <img src="https://placeimg.com/400/400/people">
       </ion-thumbnail>
@@ -40,12 +42,14 @@
       <ion-note>Owner</ion-note>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, reiciendis.</p>
       <div id="item-end" item-end>
-        <ion-note color="secondary">₱10</ion-note>
-        <button ion-button clear>View</button>
+        <h1 ion-text color="secondary">₱10</h1>
+        <span>
+          <ion-badge>93</ion-badge> Reviews
+        </span>
       </div>
-    </ion-item>
+    </button>
   </ion-list>
-  
+
 </ion-content>
 
 <ion-footer text-center id="footer">

@@ -12,6 +12,9 @@ import { MapPage } from '../pages/map/map';
 import { ListPage } from '../pages/list/list';
 import { PicturePage } from '../pages/picture/picture';
 import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
+import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
+
+import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,13 @@ import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
     MapPage,
     ListPage,
     PicturePage,
-    ToiletCrudPage
+    ToiletCrudPage,
+    ToiletDetailsPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    Ionic2RatingModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,7 +42,8 @@ import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
     MapPage,
     ListPage,
     PicturePage,
-    ToiletCrudPage
+    ToiletCrudPage,
+    ToiletDetailsPage
   ],
   providers: [
     StatusBar,

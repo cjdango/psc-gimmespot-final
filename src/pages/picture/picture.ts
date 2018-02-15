@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, ModalController } from 'ionic-angular';
+import { ToiletDetailsPage } from '../toilet-details/toilet-details';
 
 /**
  * Generated class for the PicturePage page.
@@ -17,12 +18,19 @@ export class PicturePage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public modalCtrl: ModalController
   ) {
   }
 
   toggleMenu() {
     this.menuCtrl.toggle();
+  }
+
+  showToiletDetails() {
+    // do something
+   const modal = this.modalCtrl.create(ToiletDetailsPage);
+   modal.present();
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 
 /**
  * Generated class for the MapPage page.
@@ -14,11 +14,15 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class MapPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public menuCtrl: MenuController
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MapPage');
+  toggleMenu() {
+    this.menuCtrl.toggle();
   }
 
 }

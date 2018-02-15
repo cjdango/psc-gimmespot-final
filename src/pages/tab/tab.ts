@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ListPage } from '../list/list';
 import { MapPage } from '../map/map';
 import { PicturePage } from '../picture/picture';
+import { ToiletCrudPage } from '../toilet-crud/toilet-crud';
 
 /**
  * Generated class for the TabPage tabs.
@@ -23,5 +24,9 @@ export class TabPage {
 
 
   constructor(public navCtrl: NavController) {}
+
+  showToiletCrudPage() {
+    this.navCtrl.push(ToiletCrudPage);
+  }
 
 }

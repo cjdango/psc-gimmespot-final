@@ -11,4 +11,8 @@ export class RegisterPage {
 
   }
 
+  handleOnLogin() {
+    this.navCtrl.pop();
+  }
+
 }

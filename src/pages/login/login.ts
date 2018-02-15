@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { RegisterPage } from '../register/register';
 
 
 @Component({
@@ -9,10 +10,11 @@ import { NavController, NavParams } from 'ionic-angular';
 export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    
+
   }
 
-  ionViewDidLoad() {
+  handleOnRegister() {
+    this.navCtrl.push(RegisterPage);
   }
 
 }

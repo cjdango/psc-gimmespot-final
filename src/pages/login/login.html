@@ -29,14 +29,14 @@
 
     <div id="login-register-section">
       <span>Don't have an account?</span>
-      <button ion-button no-padding small clear>
+      <button ion-button no-padding small clear (click)="handleOnRegister()">
         Register here.
       </button>
     </div>
 
     <div id="or-divider" ion-text color="ash">or</div>
 
-    <button ion-button icon-right center color="facebook">Continue with
+    <button mode="ios" ion-button icon-right center color="facebook">Continue with
       <ion-icon name="logo-facebook"></ion-icon>
     </button>
   </div>

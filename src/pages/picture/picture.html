@@ -8,7 +8,7 @@
 
   <ion-navbar mode="ios">
     <ion-buttons start>
-      <button ion-button icon-only>
+      <button ion-button icon-only (click)="toggleMenu()">
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
@@ -18,6 +18,29 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="card-background-page">
+    <ion-card>
+      <img src="https://placeimg.com/400/400/animals" />
+      <div class="card-title">São Paulo</div>
+      <div class="card-subtitle">41 Listings</div>
+    </ion-card>
+
+    <ion-card>
+      <img src="https://placeimg.com/400/400/animals" />
+      <div class="card-title">Amsterdam</div>
+      <div class="card-subtitle">64 Listings</div>
+    </ion-card>
+
+    <ion-card>
+      <img src="https://placeimg.com/400/400/animals" />
+      <div class="card-title">San Francisco</div>
+      <div class="card-subtitle">72 Listings</div>
+    </ion-card>
+
+    <ion-card>
+      <img src="https://placeimg.com/400/400/animals" />
+      <div class="card-title">Madison</div>
+      <div class="card-subtitle">28 Listings</div>
+    </ion-card>
 
 </ion-content>

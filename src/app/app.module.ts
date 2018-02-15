@@ -11,6 +11,7 @@ import { TabPage } from '../pages/tab/tab';
 import { MapPage } from '../pages/map/map';
 import { ListPage } from '../pages/list/list';
 import { PicturePage } from '../pages/picture/picture';
+import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PicturePage } from '../pages/picture/picture';
     TabPage,
     MapPage,
     ListPage,
-    PicturePage
+    PicturePage,
+    ToiletCrudPage
   ],
   imports: [
     BrowserModule,
@@ -34,12 +36,13 @@ import { PicturePage } from '../pages/picture/picture';
     TabPage,
     MapPage,
     ListPage,
-    PicturePage
+    PicturePage,
+    ToiletCrudPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

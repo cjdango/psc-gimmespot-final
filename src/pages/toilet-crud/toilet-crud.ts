@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ActionSheetController, Platform } from 'ionic-angular'
+import { ActionSheetController, Platform, NavController } from 'ionic-angular';
+import { ToiletFormPage } from '../toilet-form/toilet-form';
 
 /**
  * Generated class for the ToiletCrudPage page.
@@ -14,12 +15,20 @@ import { ActionSheetController, Platform } from 'ionic-angular'
 })
 export class ToiletCrudPage {
 
-  constructor(public actionSheetCtrl: ActionSheetController, public platform: Platform) {
+  constructor(
+    public actionSheetCtrl: ActionSheetController, 
+    public platform: Platform,
+    public navCtrl: NavController
+  ) {
+  }
+
+  addToilet() {
+    this.navCtrl.push(ToiletFormPage, 'Add Toilet');
   }
 
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Modify your album',
+      title: 'Modify your toilets',
       buttons: [
         {
           text: 'Delete',
@@ -34,6 +43,7 @@ export class ToiletCrudPage {
           icon: !this.platform.is('ios') ? 'create' : null,
           handler: () => {
             console.log('Archive clicked');
+            this.navCtrl.push(ToiletFormPage, 'Edit Toilet')
           }
         },
         {

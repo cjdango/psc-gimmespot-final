@@ -13,6 +13,7 @@ import { ListPage } from '../pages/list/list';
 import { PicturePage } from '../pages/picture/picture';
 import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
+import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 
@@ -26,7 +27,8 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     ListPage,
     PicturePage,
     ToiletCrudPage,
-    ToiletDetailsPage
+    ToiletDetailsPage,
+    ToiletFormPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     ListPage,
     PicturePage,
     ToiletCrudPage,
-    ToiletDetailsPage
+    ToiletDetailsPage,
+    ToiletFormPage
   ],
   providers: [
     StatusBar,

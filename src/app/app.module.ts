@@ -16,6 +16,12 @@ import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { firebaseConfig } from '../environment';
 
 @NgModule({
   declarations: [
@@ -33,6 +39,10 @@ import { Ionic2RatingModule } from 'ionic2-rating';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
     Ionic2RatingModule
   ],
   bootstrap: [IonicApp],

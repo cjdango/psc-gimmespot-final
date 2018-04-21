@@ -27,7 +27,7 @@
   <rating [(ngModel)]="rating" readOnly="true"></rating>
   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, placeat!</p>
   <div id="image" text-center>
-    <img src="https://placeimg.com/400/400/animals" width="200" height="200" />
+    <img src="http://placeimg.com/400/400/animals" width="200" height="200" />
   </div>
-  <button ion-button full margin-top>Call Host</button>
+  <button ion-button full margin-top (click)="onConvoPage()">Chat Host</button>
 </ion-content>

@@ -31,4 +31,16 @@ page-picture {
         }
       
     }
+
+    .item {
+      width: 100%;
+      height: 150px;
+      background: url('http://placeimg.com/400/400/animals');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .col {
+      padding: 1px;
+    }
 }

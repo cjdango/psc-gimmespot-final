@@ -15,7 +15,8 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-ion-item.item-input {
+ion-item.item-input, 
+ion-item.item-md {
     padding-left: 0;
 }
 

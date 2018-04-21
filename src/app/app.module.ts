@@ -14,6 +14,8 @@ import { PicturePage } from '../pages/picture/picture';
 import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
+import { ConvoPage } from '../pages/convo/convo';
+
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -34,7 +36,8 @@ import { firebaseConfig } from '../environment';
     PicturePage,
     ToiletCrudPage,
     ToiletDetailsPage,
-    ToiletFormPage
+    ToiletFormPage,
+    ConvoPage
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { firebaseConfig } from '../environment';
     PicturePage,
     ToiletCrudPage,
     ToiletDetailsPage,
-    ToiletFormPage
+    ToiletFormPage,
+    ConvoPage
   ],
   providers: [
     StatusBar,

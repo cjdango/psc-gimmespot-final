@@ -1,0 +1,29 @@
+page-convo {
+    .msg-context {
+        padding: 20px;
+    }
+
+    .left-msg, .right-msg {
+        display: flex;
+        margin-bottom: 5px;
+    }
+
+    .right-msg {
+        flex-flow: row-reverse;
+    }
+
+    .left-msg > .msg-context,
+    .right-msg > .msg-context {
+        max-width: 230px;
+        border-radius: 5px;
+    }
+
+    .left-msg > .msg-context {
+        background: #CCC;
+    }
+
+    .right-msg > .msg-context {
+        background: color($colors, primary);
+        color: white;
+    }
+}

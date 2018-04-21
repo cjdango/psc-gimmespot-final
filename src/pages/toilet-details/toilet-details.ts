@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
+import { ConvoPage } from '../convo/convo';
+
 /**
  * Generated class for the ToiletDetailsPage page.
  *
@@ -16,10 +18,14 @@ export class ToiletDetailsPage {
   rating: number = 4;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController
   ) {
+  }
+
+  onConvoPage() {
+    this.navCtrl.push(ConvoPage);
   }
 
   close() {

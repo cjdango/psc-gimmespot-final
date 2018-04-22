@@ -5,12 +5,16 @@ page-toilet-details {
         &.rating li {
           padding: 5px 3px !important;
           background: none;
-          color: #ffb400;
+          color: color($colors, gold);
       
           ion-icon {
             font-size: 30px;
           }
         }
+    }
+
+    ul.rating {
+        margin: 0 !important;
     }
 
     #image {

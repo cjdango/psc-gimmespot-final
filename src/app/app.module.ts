@@ -15,7 +15,7 @@ import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 import { ConvoPage } from '../pages/convo/convo';
-
+import { ReviewsPage } from '../pages/reviews/reviews';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -24,6 +24,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { firebaseConfig } from '../environment';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { firebaseConfig } from '../environment';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage
+    ConvoPage,
+    ReviewsPage
   ],
   imports: [
     BrowserModule,
@@ -60,12 +62,14 @@ import { firebaseConfig } from '../environment';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage
+    ConvoPage,
+    ReviewsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider
   ]
 })
 export class AppModule { }

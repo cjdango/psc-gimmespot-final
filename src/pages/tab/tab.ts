@@ -4,7 +4,6 @@ import { ListPage } from '../list/list';
 import { MapPage } from '../map/map';
 import { PicturePage } from '../picture/picture';
 import { ToiletCrudPage } from '../toilet-crud/toilet-crud';
-import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the TabPage tabs.
@@ -18,30 +17,16 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'tab.html'
 })
 export class TabPage {
-  displayName: string;
 
   listRoot = ListPage
   mapRoot = MapPage
   pictureRoot = PicturePage
 
 
-  constructor(
-    public navCtrl: NavController,
-    public authProvider: AuthProvider
-  ) {
-   authProvider.currentUserObservable.subscribe(auth => {
-      if (auth) {
-        this.displayName = auth.displayName;
-      }
-    });
-  }
+  constructor(public navCtrl: NavController) {}
 
   showToiletCrudPage() {
     this.navCtrl.push(ToiletCrudPage);
-  }
-
-  signOut() {
-    this.authProvider.signOut();
   }
 
 }

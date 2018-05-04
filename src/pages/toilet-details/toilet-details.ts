@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { ConvoPage } from '../convo/convo';
-import { ReviewsPage } from '../reviews/reviews';
 
 /**
  * Generated class for the ToiletDetailsPage page.
@@ -27,10 +26,6 @@ export class ToiletDetailsPage {
 
   onConvoPage() {
     this.navCtrl.push(ConvoPage);
-  }
-
-  onReviewsPage() {
-    this.navCtrl.push(ReviewsPage);
   }
 
   close() {

@@ -16,7 +16,7 @@ import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 import { ConvoPage } from '../pages/convo/convo';
-import { ReviewsPage } from '../pages/reviews/reviews';
+
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -24,8 +24,12 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+<<<<<<< HEAD
 import { environment } from '../environment';
 import { AuthProvider } from '../providers/auth/auth';
+=======
+import { firebaseConfig } from '../environment';
+>>>>>>> parent of 737d28b... Authentication
 
 @NgModule({
   declarations: [
@@ -39,8 +43,7 @@ import { AuthProvider } from '../providers/auth/auth';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage,
-    ReviewsPage
+    ConvoPage
   ],
   imports: [
     BrowserModule,
@@ -63,15 +66,13 @@ import { AuthProvider } from '../providers/auth/auth';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage,
-    ReviewsPage
+    ConvoPage
   ],
   providers: [
     Geolocation,
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule { }

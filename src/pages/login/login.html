@@ -18,14 +18,14 @@
 
     <ion-list>
       <ion-item>
-        <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
+        <ion-input type="email" placeholder="Email"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
+        <ion-input type="password" placeholder="Password"></ion-input>
       </ion-item>
     </ion-list>
 
-    <button ion-button full (click)="emailLogin()">Login</button>
+    <button ion-button full>Login</button>
 
     <div id="login-register-section">
       <span>Don't have an account?</span>
@@ -36,7 +36,7 @@
 
     <div id="or-divider" ion-text color="ash">or</div>
 
-    <button mode="ios" ion-button icon-right center color="facebook" (click)="facebookLogin()">Continue with
+    <button mode="ios" ion-button icon-right center color="facebook">Continue with
       <ion-icon name="logo-facebook"></ion-icon>
     </button>
   </div>

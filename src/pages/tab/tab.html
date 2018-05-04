@@ -2,23 +2,12 @@
     <ion-content>
         <div padding text-center>
             <img src="assets/imgs/logo.png" width="100" height="100" alt="">
-            <h5 ion-text>{{ displayName }}</h5>
+            <h5 ion-text>Username</h5>
         </div>
-
-        <ion-list>
-            <button ion-item (click)="showToiletCrudPage()">My Toilets</button>
-            <button ion-item>
-                Notifications
-                <ion-badge>3</ion-badge>
-            </button>
-            <button ion-item>
-                Reservations
-            </button>
-
-        </ion-list>
+        <button ion-button clear full (click)="showToiletCrudPage()">My Toilets</button>
     </ion-content>
     <ion-footer>
-        <button ion-button full clear (click)="signOut()">Logout</button>
+        <button ion-button full clear>Logout</button>
     </ion-footer>
 </ion-menu>
 <ion-tabs #tabs>

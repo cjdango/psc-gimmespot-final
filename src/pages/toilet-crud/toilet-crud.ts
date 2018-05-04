@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActionSheetController, Platform, NavController } from 'ionic-angular';
 import { ToiletFormPage } from '../toilet-form/toilet-form';
-import { ReviewsPage } from '../reviews/reviews';
 
 /**
  * Generated class for the ToiletCrudPage page.
@@ -27,46 +26,38 @@ export class ToiletCrudPage {
     this.navCtrl.push(ToiletFormPage, 'Add Toilet');
   }
 
-  updateToilet() {
-    this.navCtrl.push(ToiletFormPage, 'Edit Toilet');
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Modify your toilets',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            console.log('Destructive clicked');
+          }
+        },
+        {
+          text: 'Edit',
+          icon: !this.platform.is('ios') ? 'create' : null,
+          handler: () => {
+            console.log('Archive clicked');
+            this.navCtrl.push(ToiletFormPage, 'Edit Toilet')
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
-
-  viewReviews() {
-    this.navCtrl.push(ReviewsPage)
-  }
-
-  // presentActionSheet() {
-  //   let actionSheet = this.actionSheetCtrl.create({
-  //     title: 'Modify your toilets',
-  //     buttons: [
-  //       {
-  //         text: 'Delete',
-  //         role: 'destructive',
-  //         icon: !this.platform.is('ios') ? 'trash' : null,
-  //         handler: () => {
-  //           console.log('Destructive clicked');
-  //         }
-  //       },
-  //       {
-  //         text: 'Edit',
-  //         icon: !this.platform.is('ios') ? 'create' : null,
-  //         handler: () => {
-  //           console.log('Archive clicked');
-  //           this.navCtrl.push(ToiletFormPage, 'Edit Toilet')
-  //         }
-  //       },
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         icon: !this.platform.is('ios') ? 'close' : null,
-  //         handler: () => {
-  //           console.log('Cancel clicked');
-  //         }
-  //       }
-  //     ]
-  //   });
-
-  //   actionSheet.present();
-  // }
 
 }

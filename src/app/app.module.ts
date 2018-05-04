@@ -26,8 +26,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { environment } from '../environment';
 import { AuthProvider } from '../providers/auth/auth';
-import { MapProvider } from '../providers/map/map';
-import { ToiletProvider } from '../providers/toilet/toilet';
 
 @NgModule({
   declarations: [
@@ -73,9 +71,7 @@ import { ToiletProvider } from '../providers/toilet/toilet';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider,
-    MapProvider,
-    ToiletProvider
+    AuthProvider
   ]
 })
 export class AppModule { }

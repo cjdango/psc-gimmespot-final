@@ -31,6 +31,9 @@
       <ion-input type="File" placeholder="Picture"></ion-input>
     </ion-item>
   </ion-list>
+  <h6 ion-text color="ash">Location:</h6>
+  <div id="map" class="map"></div>
+  
   <button ion-button full *ngIf="title === 'Add Toilet'; else saveBtn">Submit</button>
   <ng-template #saveBtn>
     <button ion-button full >Save</button>

@@ -29,7 +29,7 @@
       <rating [(ngModel)]="rating" readOnly="true"></rating>
     </ion-col>
     <ion-col col-5 no-padding>
-      <button ion-button clear mode="ios" no-margin>Reviews</button>
+      <button ion-button clear mode="ios" (click)="onReviewsPage()" no-margin>Reviews</button>
     </ion-col>
   </ion-row>
 

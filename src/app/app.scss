@@ -20,6 +20,14 @@ ion-item.item-md {
     padding-left: 0;
 }
 
+.item-md.item-block .item-inner {
+    padding-right: 0;
+}
+
+.label-md {
+    margin-left: 8px;
+}
+
 #container {
     padding: 58px;
 }
@@ -38,4 +46,18 @@ ion-item.item-md {
 // Fix grey lines
 ::-webkit-scrollbar {
     display: none;
+}
+
+ul {
+    padding: 0px;
+  
+    &.rating li {
+      padding: 5px 3px !important;
+      background: none;
+      color: color($colors, gold);
+  
+      ion-icon {
+        font-size: 30px;
+      }
+    }
 }

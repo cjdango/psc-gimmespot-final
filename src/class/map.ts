@@ -1,0 +1,34 @@
+export interface IGeometry {
+    type: string;
+    coordinates: number[];
+}
+
+export interface IGeoJson {
+    type: string;
+    geometry: IGeometry;
+    properties?: any;
+    $key?: string;
+}
+
+export class GeoJson implements IGeoJson {
+    type = 'Feature';
+    geometry: IGeometry;
+
+    constructor(coordinates, public properties?) {
+        this.geometry = {
+            type: 'Point',
+            coordinates: coordinates
+        }
+    }
+
+    getData(): object {
+        const result = {};
+        Object.keys(this).map(key => result[key] = this[key]);
+        return result;
+    }
+}
+
+export class FeatureCollection {
+    type = 'FeatureCollection'
+    constructor(public features: Array<GeoJson>) { }
+}

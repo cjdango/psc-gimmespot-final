@@ -1,17 +1,4 @@
 page-toilet-details {
-    ul {
-        padding: 0px;
-      
-        &.rating li {
-          padding: 5px 3px !important;
-          background: none;
-          color: color($colors, gold);
-      
-          ion-icon {
-            font-size: 30px;
-          }
-        }
-    }
 
     ul.rating {
         margin: 0 !important;

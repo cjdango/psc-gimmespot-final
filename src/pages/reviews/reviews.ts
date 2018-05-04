@@ -2,31 +2,24 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ToiletFormPage page.
+ * Generated class for the ReviewsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
 @Component({
-  selector: 'page-toilet-form',
-  templateUrl: 'toilet-form.html',
+  selector: 'page-reviews',
+  templateUrl: 'reviews.html',
 })
-export class ToiletFormPage {
-  title: string;
-  toilet = {} as {
-    name: string;
-    cost: number;
-    desc: string;
-    owner: string;
-  }
+export class ReviewsPage {
+  rating: number = 4;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.title = navParams.data;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ToiletFormPage');
+    console.log('ionViewDidLoad ReviewsPage');
   }
 
 }

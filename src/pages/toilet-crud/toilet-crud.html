@@ -20,20 +20,91 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item (click)="presentActionSheet()">
+    <!-- <div class="item" ion-item (click)="presentActionSheet()">
       <h5 ion-text>Toilet Name</h5>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
       <span>Cost: 20</span>
-    </button>
-    <button ion-item (click)="presentActionSheet()">
+    </div>
+    <div class="item" ion-item (click)="presentActio1nSheet()">
       <h5 ion-text>Toilet Name</h5>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
       <span>Cost: 20</span>
-    </button>
-    <button ion-item (click)="presentActionSheet()">
+    </div>
+    <div class="item" ion-item (click)="presentActionSheet()">
       <h5 ion-text>Toilet Name</h5>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
       <span>Cost: 20</span>
-    </button>
+    </div>
+  </ion-list> -->
+
+    <ion-item-sliding>
+      <ion-item>
+        <h5 ion-text>Toilet Name</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
+        <span>Cost: 20</span>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+        <button ion-button color="light" (click)="viewReviews()">
+          <ion-icon name="text"></ion-icon>
+          Reviews
+        </button>
+        <button ion-button color="primary" (click)="updateToilet()">
+          <ion-icon name="create"></ion-icon>
+          Update
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item>
+        <h5 ion-text>Toilet Name</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
+        <span>Cost: 20</span>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+        <button ion-button color="light" (click)="viewReviews()">
+          <ion-icon name="text"></ion-icon>
+          Reviews
+        </button>
+        <button ion-button color="primary" (click)="updateToilet()">
+          <ion-icon name="create"></ion-icon>
+          Update
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item>
+        <h5 ion-text>Toilet Name</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
+        <span>Cost: 20</span>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger">
+          <ion-icon name="trash"></ion-icon>
+          Delete
+        </button>
+        <button ion-button color="light" (click)="viewReviews()">
+          <ion-icon name="text"></ion-icon>
+          Reviews
+        </button>
+        <button ion-button color="primary" (click)="updateToilet()">
+          <ion-icon name="create"></ion-icon>
+          Update
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
   </ion-list>
 </ion-content>

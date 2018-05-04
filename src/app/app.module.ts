@@ -3,7 +3,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login'
@@ -16,7 +15,7 @@ import { ToiletCrudPage } from '../pages/toilet-crud/toilet-crud';
 import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 import { ConvoPage } from '../pages/convo/convo';
-
+import { ReviewsPage } from '../pages/reviews/reviews';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -24,12 +23,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-<<<<<<< HEAD
-import { environment } from '../environment';
-import { AuthProvider } from '../providers/auth/auth';
-=======
 import { firebaseConfig } from '../environment';
->>>>>>> parent of 737d28b... Authentication
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -43,12 +38,13 @@ import { firebaseConfig } from '../environment';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage
+    ConvoPage,
+    ReviewsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
@@ -66,13 +62,14 @@ import { firebaseConfig } from '../environment';
     ToiletCrudPage,
     ToiletDetailsPage,
     ToiletFormPage,
-    ConvoPage
+    ConvoPage,
+    ReviewsPage
   ],
   providers: [
-    Geolocation,
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthProvider
   ]
 })
 export class AppModule { }

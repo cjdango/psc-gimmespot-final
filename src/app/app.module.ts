@@ -19,7 +19,7 @@ import { ReviewsPage } from '../pages/reviews/reviews';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
@@ -45,7 +45,7 @@ import { AuthProvider } from '../providers/auth/auth';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
     Ionic2RatingModule

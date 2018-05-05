@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/observable';
 import { User } from '@firebase/auth-types';
@@ -20,12 +20,11 @@ export class AuthProvider {
 
   constructor(
     public afAuth: AngularFireAuth,
-    public db: AngularFirestore
+    public db: AngularFireDatabase
   ) {
 
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
-      console.log('tangina')
     });
   }
 
@@ -93,7 +92,7 @@ export class AuthProvider {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
         this.authState = user;
-        this.updateUserData();        
+        this.updateUserData();
       })
       .catch(error => console.log(error));
   }
@@ -107,13 +106,13 @@ export class AuthProvider {
   private updateUserData(): void {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
-    let userId = this.currentUserId;
+    let path = `users/${this.currentUserId}`; // Endpoint on firebase
     let data = {
       email: this.authState.email,
       name: this.authState.displayName
     }
 
-    this.db.collection('users').doc(userId).set(data, { merge: true })
+    this.db.object(path).update(data)
       .catch(error => console.log(error));
 
   }

@@ -28,8 +28,7 @@ export class MyApp {
 
     authProvider.currentUserObservable.subscribe(auth => {
       this.rootPage = auth ? TabPage : LoginPage;
-      console.log(auth)
-    });
+    }, () => this.rootPage = LoginPage);
 
 
   }

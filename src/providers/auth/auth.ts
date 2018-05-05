@@ -4,7 +4,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/observable';
 import { User } from '@firebase/auth-types';
-import { TabPage } from '../../pages/tab/tab';
 import { NavController } from 'ionic-angular';
 
 

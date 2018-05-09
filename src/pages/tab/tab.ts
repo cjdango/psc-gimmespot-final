@@ -19,6 +19,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class TabPage {
   displayName: string;
+  photoURL: string;
 
   listRoot = ListPage
   mapRoot = MapPage
@@ -29,11 +30,12 @@ export class TabPage {
     public navCtrl: NavController,
     public authProvider: AuthProvider
   ) {
-   authProvider.currentUserObservable.subscribe(auth => {
-      if (auth) {
-        this.displayName = auth.displayName;
-      }
-    });
+  //  authProvider.currentUserObservable.subscribe(auth => {
+  //     if (auth) {
+  //       this.displayName = auth.displayName;
+  //       this.photoURL = auth.photoURL;
+  //     }
+  //   });
   }
 
   showToiletCrudPage() {

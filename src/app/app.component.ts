@@ -7,17 +7,20 @@ import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { TabPage } from '../pages/tab/tab';
 import { LoginPage } from '../pages/login/login';
 import { AuthProvider } from '../providers/auth/auth';
+import { PictureProvider } from '../providers/picture/picture';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;
+  rootPage: any;
 
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
+    platform: Platform,
+    statusBar: StatusBar,
     splashScreen: SplashScreen,
-    authProvider: AuthProvider
+    authProvider: AuthProvider,
+    pictureProvider: PictureProvider
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -26,7 +29,9 @@ export class MyApp {
       splashScreen.hide();
     });
 
+
     authProvider.currentUserObservable.subscribe(auth => {
+      if(!auth) {alert(auth)}
       this.rootPage = auth ? TabPage : LoginPage;
     }, () => this.rootPage = LoginPage);
 

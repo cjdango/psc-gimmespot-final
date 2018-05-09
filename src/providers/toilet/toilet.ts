@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AuthProvider } from '../auth/auth';
+import 'rxjs/add/operator/map';
+
+export interface Toilet {
+  name: string;
+  cost: number;
+  desc: string;
+  owner: string;
+  owner_id: string;
+}
 
 /*
   Generated class for the ToiletProvider provider.
@@ -10,8 +20,31 @@ import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable()
 export class ToiletProvider {
 
-  constructor(public http: AngularFirestore) {
-    console.log('Hello ToiletProvider Provider');
+  constructor(
+    public db: AngularFireDatabase,
+    public authProvider: AuthProvider
+  ) {
+  }
+
+  getUserToilets() {
+    const userId = this.authProvider.currentUserId;
+    return this.db.list('/toilets', ref => ref.orderByChild('owner_id').equalTo(userId))
+      .snapshotChanges().map(changes => {
+        return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+      });
+  }
+
+  getToiletById(key: string) {
+    return this.db.object(`/toilets/${key}`).snapshotChanges()
+      .map(c => ({ key: c.payload.key, ...c.payload.val() }))
+  }
+
+  deleteToilet(key: string) {
+    return this.db.object(`/toilets/${key}`).remove();
+  }
+
+  updateToilet(key: string, data: Toilet) {
+    return this.db.object(`/toilets/${key}`).update(data);
   }
 
 }

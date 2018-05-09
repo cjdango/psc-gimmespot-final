@@ -8,7 +8,16 @@
 
 <ion-content>
   <div id="container" text-center>
-    <ion-list>
+    <div *ngIf="!pictureData; else picture">
+      <button ion-button icon-only large outline color="ash" (click)="presentActionSheet()">
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </div>
+    <ng-template #picture>
+        <img [src]="pictureData" width="100" height="100" />
+    </ng-template>
+
+    <ion-list margin-top>
       <ion-item>
         <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
       </ion-item>

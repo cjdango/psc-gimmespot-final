@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { Observable } from 'rxjs/observable';
 import { User } from '@firebase/auth-types';
 import { NavController } from 'ionic-angular';
+import { PictureProvider } from '../picture/picture';
 
 
 /*
@@ -16,14 +17,15 @@ import { NavController } from 'ionic-angular';
 @Injectable()
 export class AuthProvider {
 
-  authState: any = null;
+  authState: User = null;
 
   constructor(
     public afAuth: AngularFireAuth,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public pictureProvider: PictureProvider
   ) {
 
-    this.afAuth.authState.subscribe((auth) => {
+    this.afAuth.authState.subscribe((auth: User) => {
       this.authState = auth;
     });
   }
@@ -34,7 +36,7 @@ export class AuthProvider {
   }
 
   // Returns current user data
-  get currentUser(): any {
+  get currentUser(): User | null {
     return this.authenticated ? this.authState : null;
   }
 
@@ -76,44 +78,44 @@ export class AuthProvider {
   }
 
   //// Email/Password Auth ////
-  emailSignUp(email: string, password: string, displayName: string, navCtrl: NavController) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        user.updateProfile({ displayName })
-          .then(() => {
-            this.authState = user;
-            this.updateUserData();
-          });
-      })
-      .catch(error => console.log(error));
+  async emailSignUp(email: string, password: string, displayName: string, navCtrl: NavController) {
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(email, password);  
+      // this.updateUserData();
+    } catch (error) {
+      // alert(error)
+    }
   }
 
   emailLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((user) => {
-        this.authState = user;
-        this.updateUserData();
+        // this.updateUserData();
       })
-      .catch(error => console.log(error));
+      // .catch(error => console.log(error));
   }
 
   //// Sign Out ////
   signOut(): void {
-    this.afAuth.auth.signOut();
+    // this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then((a) => {
+      console.log(a)
+    });
   }
 
   //// Helpers ////
   private updateUserData(): void {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
-    let path = `users/${this.currentUserId}`; // Endpoint on firebase
-    let data = {
-      email: this.authState.email,
-      name: this.authState.displayName
-    }
+    // let path = `users/${this.currentUserId}`; // Endpoint on firebase
 
-    this.db.object(path).update(data)
-      .catch(error => console.log(error));
+    // let data = {
+    //   email: this.authState.email,
+    //   name: this.authState.displayName
+    // }
+
+    // this.db.object(path).update(data)
+    //   .catch(error => console.log(error));
 
   }
 

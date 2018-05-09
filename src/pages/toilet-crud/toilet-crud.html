@@ -37,15 +37,15 @@
     </div>
   </ion-list> -->
 
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let toilet of myToilets | async">
       <ion-item>
-        <h5 ion-text>Toilet Name</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
-        <span>Cost: 20</span>
+        <h5 ion-text>{{toilet.name}}</h5>
+        <p>{{toilet.desc}}</p>
+        <span>Cost: {{toilet.cost}}</span>
       </ion-item>
 
       <ion-item-options side="right">
-        <button ion-button color="danger">
+        <button ion-button color="danger" (click)="deleteToilet(toilet.key)">
           <ion-icon name="trash"></ion-icon>
           Delete
         </button>
@@ -53,58 +53,14 @@
           <ion-icon name="text"></ion-icon>
           Reviews
         </button>
-        <button ion-button color="primary" (click)="updateToilet()">
+        <button ion-button color="primary" (click)="updateToilet(toilet.key)">
           <ion-icon name="create"></ion-icon>
           Update
         </button>
       </ion-item-options>
     </ion-item-sliding>
 
-    <ion-item-sliding>
-      <ion-item>
-        <h5 ion-text>Toilet Name</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
-        <span>Cost: 20</span>
-      </ion-item>
-
-      <ion-item-options side="right">
-        <button ion-button color="danger">
-          <ion-icon name="trash"></ion-icon>
-          Delete
-        </button>
-        <button ion-button color="light" (click)="viewReviews()">
-          <ion-icon name="text"></ion-icon>
-          Reviews
-        </button>
-        <button ion-button color="primary" (click)="updateToilet()">
-          <ion-icon name="create"></ion-icon>
-          Update
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-
-    <ion-item-sliding>
-      <ion-item>
-        <h5 ion-text>Toilet Name</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, porro!</p>
-        <span>Cost: 20</span>
-      </ion-item>
-
-      <ion-item-options side="right">
-        <button ion-button color="danger">
-          <ion-icon name="trash"></ion-icon>
-          Delete
-        </button>
-        <button ion-button color="light" (click)="viewReviews()">
-          <ion-icon name="text"></ion-icon>
-          Reviews
-        </button>
-        <button ion-button color="primary" (click)="updateToilet()">
-          <ion-icon name="create"></ion-icon>
-          Update
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
+    
 
   </ion-list>
 </ion-content>

@@ -25,14 +25,13 @@
       <ion-input type="text" placeholder="Description" [(ngModel)]="toilet.desc"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="text" placeholder="Owner" [(ngModel)]="toilet.owner"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-input type="File" placeholder="Picture"></ion-input>
     </ion-item>
   </ion-list>
-  <button ion-button full *ngIf="title === 'Add Toilet'; else saveBtn">Submit</button>
+  <ion-note>Location: </ion-note>
+  <div id="map"></div>
+  <button ion-button full *ngIf="title === 'Add Toilet'; else saveBtn" (click)="addToilet()">Submit</button>
   <ng-template #saveBtn>
-    <button ion-button full >Save</button>
+    <button ion-button full (click)="updateToilet()">Save</button>
   </ng-template>
 </ion-content>

@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login'
@@ -23,8 +25,11 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
-import { firebaseConfig } from '../environment';
+import { environment } from '../environment';
 import { AuthProvider } from '../providers/auth/auth';
+import { MapProvider } from '../providers/map/map';
+import { ToiletProvider } from '../providers/toilet/toilet';
+import { PictureProvider } from '../providers/picture/picture';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,7 @@ import { AuthProvider } from '../providers/auth/auth';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
@@ -68,8 +73,13 @@ import { AuthProvider } from '../providers/auth/auth';
   providers: [
     StatusBar,
     SplashScreen,
+    Geolocation,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider
+    AuthProvider,
+    MapProvider,
+    ToiletProvider,
+    PictureProvider
   ]
 })
 export class AppModule { }

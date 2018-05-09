@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ActionSheetController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { PictureProvider } from '../../providers/picture/picture';
 
 @Component({
   selector: 'page-register',
@@ -11,9 +13,14 @@ export class RegisterPage {
   password: string;
   displayName: string;
 
+  pictureData: string;
+
   constructor(
     public navCtrl: NavController,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public actionSheetCtrl: ActionSheetController,
+    public camera: Camera,
+    public pictureProvider: PictureProvider
   ) {
 
   }
@@ -22,8 +29,58 @@ export class RegisterPage {
     this.navCtrl.pop();
   }
 
-  emailSignUp() {
-    this.authProvider.emailSignUp(this.email, this.password, this.displayName, this.navCtrl);
+  async emailSignUp() {
+    await this.authProvider
+      .emailSignUp(this.email, this.password, this.displayName, this.navCtrl);
+
+    // const userId = this.authProvider.currentUserId;
+
+    // await this.pictureProvider.addPicture(`users/${userId}`, this.pictureData);
+
+    // this.pictureProvider.getDownloadURL(`users/${userId}`)
+    //   .subscribe(photoURL => {
+    //     if (photoURL) {
+    //       this.authProvider.currentUser.updateProfile({
+    //         photoURL,
+    //         displayName: this.displayName
+    //       }).then((a) => {
+    //         console.log(a)
+    //       });
+    //     }
+    //   });
   }
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Gallery',
+          icon: 'images',
+          handler: () => this.takePicture(0)
+        },
+        {
+          text: 'Take a picture',
+          icon: 'camera',
+          handler: () => this.takePicture(1)
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
+
+  private takePicture(sourceType: number) {
+    this.pictureProvider.takePicture(sourceType, 0)
+      .then(() => this.pictureData = this.pictureProvider.captureDataUrl)
+  }
+
+
 
 }

@@ -31,7 +31,6 @@ export class MyApp {
 
 
     authProvider.currentUserObservable.subscribe(auth => {
-      if(!auth) {alert(auth)}
       this.rootPage = auth ? TabPage : LoginPage;
     }, () => this.rootPage = LoginPage);
 

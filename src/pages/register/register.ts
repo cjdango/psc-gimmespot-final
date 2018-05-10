@@ -33,21 +33,21 @@ export class RegisterPage {
     await this.authProvider
       .emailSignUp(this.email, this.password, this.displayName, this.navCtrl);
 
-    // const userId = this.authProvider.currentUserId;
+    const userId = this.authProvider.currentUserId;
 
-    // await this.pictureProvider.addPicture(`users/${userId}`, this.pictureData);
+    await this.pictureProvider.addPicture(`users/${userId}`, this.pictureData);
 
-    // this.pictureProvider.getDownloadURL(`users/${userId}`)
-    //   .subscribe(photoURL => {
-    //     if (photoURL) {
-    //       this.authProvider.currentUser.updateProfile({
-    //         photoURL,
-    //         displayName: this.displayName
-    //       }).then((a) => {
-    //         console.log(a)
-    //       });
-    //     }
-    //   });
+    this.pictureProvider.getDownloadURL(`users/${userId}`)
+      .subscribe(photoURL => {
+        if (photoURL) {
+          this.authProvider.currentUser.updateProfile({
+            photoURL,
+            displayName: this.displayName
+          }).then((a) => {
+            alert('Updated: displayName, photoURL');
+          });
+        }
+      });
   }
 
   presentActionSheet() {

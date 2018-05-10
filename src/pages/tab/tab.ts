@@ -30,12 +30,12 @@ export class TabPage {
     public navCtrl: NavController,
     public authProvider: AuthProvider
   ) {
-  //  authProvider.currentUserObservable.subscribe(auth => {
-  //     if (auth) {
-  //       this.displayName = auth.displayName;
-  //       this.photoURL = auth.photoURL;
-  //     }
-  //   });
+   authProvider.currentUserObservable.subscribe(auth => {
+      if (auth) {
+        this.displayName = auth.displayName;
+        this.photoURL = auth.photoURL;
+      }
+    });
   }
 
   showToiletCrudPage() {

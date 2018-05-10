@@ -37,7 +37,8 @@
     "mapbox-gl": "^0.45.0-beta.1",
     "rxjs": "5.5.2",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.18"
+    "zone.js": "0.8.18",
+    "cordova-android": "7.0.0"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.8",
@@ -50,6 +51,9 @@
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
       },
       "cordova-plugin-camera": {}
-    }
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }

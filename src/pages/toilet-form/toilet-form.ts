@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 
 import mapboxgl from 'mapbox-gl';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -9,6 +9,7 @@ import { MapProvider } from '../../providers/map/map';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToiletProvider, Toilet } from '../../providers/toilet/toilet';
 import { Subscription } from 'rxjs/Subscription';
+import { PictureProvider } from '../../providers/picture/picture';
 
 /**
  * Generated class for the ToiletFormPage page.
@@ -31,6 +32,8 @@ export class ToiletFormPage implements OnInit, OnDestroy {
 
   toiletSubscription: Subscription;
 
+  pictureData: string = 'assets/imgs/logo.png';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -38,7 +41,9 @@ export class ToiletFormPage implements OnInit, OnDestroy {
     public geolocation: Geolocation,
     public db: AngularFireDatabase,
     public authProvider: AuthProvider,
-    public toiletProvider: ToiletProvider
+    public toiletProvider: ToiletProvider,
+    public pictureProvider: PictureProvider,
+    public actionSheetCtrl: ActionSheetController
   ) { }
 
   async ngOnInit() {
@@ -50,6 +55,12 @@ export class ToiletFormPage implements OnInit, OnDestroy {
       this.toiletSubscription = this.toiletProvider.getToiletById(this.navParams.data.toiletKey)
         .subscribe((val: Toilet) => {
           this.toilet = val;
+        })
+
+      this.pictureProvider
+        .getDownloadURL(`toilets/${this.navParams.data.toiletKey}/toiletPicture`)
+        .subscribe(photoURL => {
+          if (photoURL) this.pictureData = photoURL;
         })
 
       const val = await this.mapProvider.getMarkerById(this.navParams.data.toiletKey)
@@ -114,6 +125,7 @@ export class ToiletFormPage implements OnInit, OnDestroy {
     const key = this.db.list('/toilets')
       .push(this.toilet).key;
 
+    await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
     await this.mapProvider.createMarker(key, this.toiletLocation);
     await this.navCtrl.pop();
   }
@@ -121,8 +133,40 @@ export class ToiletFormPage implements OnInit, OnDestroy {
   async updateToilet() {
     const key = this.navParams.data.toiletKey;
     this.toiletProvider.updateToilet(key, this.toilet);
+    await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
     await this.mapProvider.createMarker(key, this.toiletLocation); // update marker
     await this.navCtrl.pop();
+  }
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Gallery',
+          icon: 'images',
+          handler: () => this.takePicture(0)
+        },
+        {
+          text: 'Take a picture',
+          icon: 'camera',
+          handler: () => this.takePicture(1)
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
+
+  private takePicture(sourceType: number) {
+    this.pictureProvider.takePicture(sourceType, 0)
+      .then(() => this.pictureData = this.pictureProvider.captureDataUrl)
   }
 
 

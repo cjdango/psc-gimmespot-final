@@ -19,7 +19,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class TabPage {
   displayName: string;
-  photoURL: string;
+  photoURL: string = 'assets/imgs/logo.png';
 
   listRoot = ListPage
   mapRoot = MapPage

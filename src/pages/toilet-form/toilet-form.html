@@ -24,8 +24,10 @@
     <ion-item>
       <ion-input type="text" placeholder="Description" [(ngModel)]="toilet.desc"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input type="File" placeholder="Picture"></ion-input>
+    <ion-item text-center>
+      <!-- <ion-input type="File" placeholder="Picture"></ion-input> -->
+      <img [src]="pictureData" width="200" height="200" alt=""><br>
+      <button margin-top ion-button color="secondary" (click)="presentActionSheet()">Choose Photo</button>
     </ion-item>
   </ion-list>
   <ion-note>Location: </ion-note>

@@ -125,7 +125,11 @@ export class ToiletFormPage implements OnInit, OnDestroy {
     const key = this.db.list('/toilets')
       .push(this.toilet).key;
 
-    await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
+    try {
+      await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
+    } catch (error) {
+      console.log(error)
+    }
     await this.mapProvider.createMarker(key, this.toiletLocation);
     await this.navCtrl.pop();
   }
@@ -133,7 +137,11 @@ export class ToiletFormPage implements OnInit, OnDestroy {
   async updateToilet() {
     const key = this.navParams.data.toiletKey;
     this.toiletProvider.updateToilet(key, this.toilet);
-    await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
+    try {
+      await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)
+    } catch (error) {
+      console.log(error)
+    }
     await this.mapProvider.createMarker(key, this.toiletLocation); // update marker
     await this.navCtrl.pop();
   }

@@ -20,34 +20,23 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item mode="md" (click)="showToiletDetails()">
+    <button *ngFor="let hit of hits" ion-item mode="md" (click)="showToiletDetails()">
       <ion-thumbnail item-start>
         <img src="http://placeimg.com/400/400/people">
       </ion-thumbnail>
-      <h2>My Neighbor Totoro</h2>
-      <ion-note>Owner</ion-note>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, reiciendis.</p>
+      <h2>{{ (hit.toilet | async)?.name }}</h2>
+      <ion-note>{{ (hit.toilet | async)?.owner }}</ion-note>
+      <p>{{ (hit.toilet | async)?.desc }}</p>
       <div id="item-end" item-end>
-        <h1 ion-text color="secondary">₱10</h1>
+        <h1 ion-text color="secondary">{{ (hit.toilet | async)?.cost }}</h1>
         <span>
           <ion-badge>93</ion-badge> Reviews
         </span>
       </div>
     </button>
-    <button ion-item mode="md" (click)="showToiletDetails()">
-      <ion-thumbnail item-start>
-        <img src="http://placeimg.com/400/400/people">
-      </ion-thumbnail>
-      <h2>My Neighbor Totoro</h2>
-      <ion-note>Owner</ion-note>
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero, reiciendis.</p>
-      <div id="item-end" item-end>
-        <h1 ion-text color="secondary">₱10</h1>
-        <span>
-          <ion-badge>93</ion-badge> Reviews
-        </span>
-      </div>
-    </button>
+    <!-- <ion-item *ngFor="let hit of hits">
+      {{ (hit.toilet | async)?.name }} - {{ (hit.toilet | async)?.cost }}
+    </ion-item> -->
   </ion-list>
 
 </ion-content>

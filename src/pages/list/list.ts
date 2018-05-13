@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NavController, NavParams, MenuController, ModalController } from 'ionic-angular';
 import { ToiletDetailsPage } from '../toilet-details/toilet-details';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { GeoProvider } from '../../providers/geo/geo';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the ListPage page.
@@ -13,14 +17,30 @@ import { ToiletDetailsPage } from '../toilet-details/toilet-details';
   selector: 'page-list',
   templateUrl: 'list.html',
 })
-export class ListPage {
+export class ListPage implements OnDestroy {
+
+  hits: any;
+  subscription: any;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public menuCtrl: MenuController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public geoProvider: GeoProvider,
+    public geolocation: Geolocation
   ) {
+
+    geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos) => {
+      geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude]);
+      this.subscription = geoProvider.hits.subscribe(hits => {
+        this.hits = hits;
+      });
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   toggleMenu() {
@@ -29,8 +49,8 @@ export class ListPage {
 
   showToiletDetails() {
     // do something
-   const modal = this.modalCtrl.create(ToiletDetailsPage);
-   modal.present();
+    const modal = this.modalCtrl.create(ToiletDetailsPage);
+    modal.present();
   }
 
 }

@@ -30,6 +30,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { MapProvider } from '../providers/map/map';
 import { ToiletProvider } from '../providers/toilet/toilet';
 import { PictureProvider } from '../providers/picture/picture';
+import { GeoProvider } from '../providers/geo/geo';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { PictureProvider } from '../providers/picture/picture';
     AuthProvider,
     MapProvider,
     ToiletProvider,
-    PictureProvider
+    PictureProvider,
+    GeoProvider
   ]
 })
 export class AppModule { }

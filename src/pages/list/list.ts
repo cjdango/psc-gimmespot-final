@@ -31,6 +31,10 @@ export class ListPage implements OnDestroy {
     public geolocation: Geolocation
   ) {
 
+    
+  }
+
+  ionViewDidLoad() {
     this.subscription = this.geoProvider.hits.subscribe(hits => {
       this.hits = hits;
     });

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import mapboxgl from 'mapbox-gl';
-import GeoFire from 'geofire';
+import GeoFire, { GeoQuery } from 'geofire';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 import { environment } from '../../environment';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 /*
   Generated class for the MapProvider provider.
@@ -37,4 +38,17 @@ export class MapProvider {
     return this.geoFire.remove($key);
   }
 
+  queryMarkers(center): GeoQuery {
+    return this.geoFire.query({
+      center,
+      radius: 1
+    });
+  }
+
+  updateQueryCrit(geoQuery: GeoQuery, center) {
+    geoQuery.updateCriteria({
+      center,
+      radius: 1
+    })
+  }
 }

@@ -18,6 +18,8 @@ export class GeoProvider {
   dbRef: AngularFireList<{}>;
   geoFire: any;
 
+  currentUserPos = { lat: 0, lng: 0 };
+
   hits = new BehaviorSubject([]);
 
   constructor(
@@ -62,7 +64,7 @@ export class GeoProvider {
         console.log(error);
       }
 
-      
+
 
       toilet.subscribe(t => {
         hit.toilet = t

@@ -41,6 +41,8 @@ export class MyApp {
       this.rootPage = auth ? TabPage : LoginPage;
       if (auth) {
         this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos) => {
+          this.geoProvider.currentUserPos.lat = pos.coords.latitude;
+          this.geoProvider.currentUserPos.lng = pos.coords.longitude;
           this.geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude])
         });
       }

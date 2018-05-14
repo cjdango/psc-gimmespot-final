@@ -22,7 +22,10 @@
   <ion-list>
     <button *ngFor="let hit of hits" ion-item mode="md" (click)="showToiletDetails()">
       <ion-thumbnail item-start>
-        <img src="http://placeimg.com/400/400/people">
+        <img *ngIf="hit.photoURL; else toiletPicture" [src]="hit.photoURL | async">        
+        <ng-template #toiletPicture>
+            <img src="assets/imgs/logo.png">
+        </ng-template>
       </ion-thumbnail>
       <h2>{{ hit.toilet.name }}</h2>
       <ion-note>{{ hit.toilet.owner }}</ion-note>

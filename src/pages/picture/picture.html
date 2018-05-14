@@ -21,7 +21,7 @@
 <ion-content class="card-background-page">
   <ion-row>
     <ion-col *ngFor="let hit of hits" col-6 class="col">
-      <button ion-button no-margin class="item" (click)="showToiletDetails()">
+      <button ion-button no-margin class="item" [ngStyle]="{ 'background-image': 'url(' + hit.photoURL + ')'}" (click)="showToiletDetails()">
         <div class="card-title">{{hit.toilet.name}}</div>
         <div class="card-subtitle">41 Listings</div>
       </button>

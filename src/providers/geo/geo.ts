@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import remove from 'lodash/remove';
 import { Geolocation } from '@ionic-native/geolocation';
+import { PictureProvider } from '../picture/picture';
 /*
   Generated class for the GeoProvider provider.
 
@@ -21,7 +22,8 @@ export class GeoProvider {
 
   constructor(
     private db: AngularFireDatabase,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private pictureProvider: PictureProvider
   ) {
     /// Reference database location for GeoFire
     this.dbRef = this.db.list('/markers');
@@ -52,7 +54,15 @@ export class GeoProvider {
         location: location,
         distance: distance,
         toilet: {} as any
+      } as any
+
+      try {
+        hit.photoURL = this.pictureProvider.getDownloadURL(`toilets/${key}/toiletPicture`);
+      } catch (error) {
+        console.log(error);
       }
+
+      
 
       toilet.subscribe(t => {
         hit.toilet = t

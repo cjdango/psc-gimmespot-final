@@ -20,7 +20,7 @@
 
 <ion-content>
   <ion-list>
-    <button *ngFor="let hit of hits" ion-item mode="md" (click)="showToiletDetails()">
+    <button *ngFor="let hit of hits" ion-item mode="md" (click)="showToiletDetails(hit)">
       <ion-thumbnail item-start>
         <img *ngIf="hit.photoURL; else toiletPicture" [src]="hit.photoURL | async">        
         <ng-template #toiletPicture>

@@ -48,9 +48,9 @@ export class ListPage implements OnDestroy {
     this.menuCtrl.toggle();
   }
 
-  showToiletDetails() {
+  showToiletDetails(hit) {
     // do something
-    const modal = this.modalCtrl.create(ToiletDetailsPage);
+    const modal = this.modalCtrl.create(ToiletDetailsPage, {hit});
     modal.present();
   }
 

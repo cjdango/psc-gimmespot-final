@@ -22,8 +22,9 @@
 
 
 <ion-content padding>
-  <h1 ion-text color="primary">Chersie's Bowl</h1>
-  <ion-note>Host: Chersie</ion-note>
+  <h1 ion-text color="primary">{{toilet.name}}</h1>
+  <h3 ion-text color="secondary">₱{{toilet.cost}}</h3>
+  <ion-note>Host: {{toilet.owner}}</ion-note>
   <ion-row align-items-center padding-top padding-bottom>
     <ion-col col-7 no-padding>
       <rating [(ngModel)]="rating" readOnly="true"></rating>
@@ -35,16 +36,12 @@
 
 
   <div id="image" text-center>
-    <img src="http://placeimg.com/400/400/animals" width="200" height="200" />
+    <img [src]="photoURL | async" width="200" height="200" />
   </div>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi, placeat! Lorem ipsum dolor sit amet consectetur adipisicing
-    elit. Vero sed pariatur magni reprehenderit ex nobis dicta, labore placeat ut, voluptate enim, exercitationem adipisci
-    totam deleniti eius ducimus nisi architecto quam molestias natus ea laboriosam aliquam. Praesentium maiores veniam aliquid
-    illum repellendus minima aperiam delectus, libero pariatur nihil culpa suscipit commodi!</p>
+  <p>{{toilet.desc}}</p>
 </ion-content>
 
 <ion-footer ion-row padding>
-  <button ion-button mode="ios" ion-col full color="light">Direction</button>
   <button ion-button mode="ios" ion-col full color="secondary" (click)="onConvoPage()">Chat Host</button>
   <button ion-button mode="ios" ion-col full>Reserve</button>
   

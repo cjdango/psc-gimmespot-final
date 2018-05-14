@@ -17,12 +17,16 @@ import { ReviewsPage } from '../reviews/reviews';
 })
 export class ToiletDetailsPage {
   rating: number = 4;
+  toilet: any;
+  photoURL: string = 'assets/imgs/logo.png';
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController
   ) {
+    this.toilet = navParams.get('hit').toilet;
+    this.photoURL = navParams.get('hit').photoURL;
   }
 
   onConvoPage() {

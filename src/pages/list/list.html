@@ -24,11 +24,11 @@
       <ion-thumbnail item-start>
         <img src="http://placeimg.com/400/400/people">
       </ion-thumbnail>
-      <h2>{{ (hit.toilet | async)?.name }}</h2>
-      <ion-note>{{ (hit.toilet | async)?.owner }}</ion-note>
-      <p>{{ (hit.toilet | async)?.desc }}</p>
+      <h2>{{ hit.toilet.name }}</h2>
+      <ion-note>{{ hit.toilet.owner }}</ion-note>
+      <p>{{ hit.toilet.desc }}</p>
       <div id="item-end" item-end>
-        <h1 ion-text color="secondary">{{ (hit.toilet | async)?.cost }}</h1>
+        <h1 ion-text color="secondary">{{ hit.toilet.cost }}</h1>
         <span>
           <ion-badge>93</ion-badge> Reviews
         </span>

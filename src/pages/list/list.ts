@@ -31,12 +31,9 @@ export class ListPage implements OnDestroy {
     public geolocation: Geolocation
   ) {
 
-    geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos) => {
-      geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude]);
-      this.subscription = geoProvider.hits.subscribe(hits => {
-        this.hits = hits;
-      });
-    })
+    this.subscription = this.geoProvider.hits.subscribe(hits => {
+      this.hits = hits;
+    });
   }
 
   ngOnDestroy() {

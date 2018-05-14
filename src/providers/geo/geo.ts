@@ -51,8 +51,12 @@ export class GeoProvider {
         key,
         location: location,
         distance: distance,
-        toilet
+        toilet: {} as any
       }
+
+      toilet.subscribe(t => {
+        hit.toilet = t
+      })
 
       let currentHits = this.hits.value
       currentHits.push(hit)
@@ -71,6 +75,6 @@ export class GeoProvider {
         center: [pos.coords.latitude, pos.coords.longitude],
         radius: 1
       });
-    })
+    });
   }
 }

@@ -9,8 +9,13 @@ import { LoginPage } from '../pages/login/login';
 import { AuthProvider } from '../providers/auth/auth';
 import { PictureProvider } from '../providers/picture/picture';
 import { Subscription } from 'rxjs/Subscription';
+
+
+import { GeoProvider } from '../providers/geo/geo';
+import { Geolocation } from '@ionic-native/geolocation';
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+  providers: [GeoProvider, Geolocation]
 })
 export class MyApp {
   rootPage: any;
@@ -20,7 +25,9 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     authProvider: AuthProvider,
-    pictureProvider: PictureProvider
+    pictureProvider: PictureProvider,
+    public geoProvider: GeoProvider,
+    public geolocation: Geolocation
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -32,6 +39,11 @@ export class MyApp {
 
     authProvider.currentUserObservable.subscribe(auth => {
       this.rootPage = auth ? TabPage : LoginPage;
+      if (auth) {
+        this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos) => {
+          this.geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude])
+        });
+      }
     }, () => this.rootPage = LoginPage);
 
 

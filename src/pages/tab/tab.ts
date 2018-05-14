@@ -5,6 +5,8 @@ import { MapPage } from '../map/map';
 import { PicturePage } from '../picture/picture';
 import { ToiletCrudPage } from '../toilet-crud/toilet-crud';
 import { AuthProvider } from '../../providers/auth/auth';
+import { GeoProvider } from '../../providers/geo/geo';
+import { Geolocation } from '@ionic-native/geolocation';
 
 /**
  * Generated class for the TabPage tabs.
@@ -30,12 +32,14 @@ export class TabPage {
     public navCtrl: NavController,
     public authProvider: AuthProvider
   ) {
-   authProvider.currentUserObservable.subscribe(auth => {
+    this.authProvider.currentUserObservable.subscribe(auth => {
       if (auth) {
         this.displayName = auth.displayName;
         this.photoURL = auth.photoURL;
       }
     });
+
+    
   }
 
   showToiletCrudPage() {

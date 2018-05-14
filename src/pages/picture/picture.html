@@ -20,31 +20,10 @@
 
 <ion-content class="card-background-page">
   <ion-row>
-    <ion-col col-6 class="col">
+    <ion-col *ngFor="let hit of hits" col-6 class="col">
       <button ion-button no-margin class="item" (click)="showToiletDetails()">
-        <div class="card-title">São Paulo</div>
+        <div class="card-title">{{hit.toilet.name}}</div>
         <div class="card-subtitle">41 Listings</div>
-      </button>
-    </ion-col>
-    <ion-col col-6 class="col">
-      <button ion-button no-margin class="item" (click)="showToiletDetails()">
-        <div class="card-title">Amsterdam</div>
-        <div class="card-subtitle">64 Listings</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col col-6 class="col">
-      <button ion-button no-margin class="item" (click)="showToiletDetails()">
-        <div class="card-title">San Francisco</div>
-        <div class="card-subtitle">72 Listings</div>
-      </button>
-    </ion-col>
-    <ion-col col-6 class="col">
-      <button ion-button no-margin class="item" (click)="showToiletDetails()">
-        <div class="card-title">Madison</div>
-        <div class="card-subtitle">28 Listings</div>
       </button>
     </ion-col>
   </ion-row>

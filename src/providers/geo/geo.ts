@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
-import GeoFire from "geofire";
+import GeoFire, { GeoQuery } from "geofire";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import remove from 'lodash/remove';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { PictureProvider } from '../picture/picture';
+
+import {Observable} from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 /*
   Generated class for the GeoProvider provider.
 
@@ -18,9 +21,14 @@ export class GeoProvider {
   dbRef: AngularFireList<{}>;
   geoFire: any;
 
+  geoQueryToilets: GeoQuery;
+
   currentUserPos = { lat: 0, lng: 0 };
 
   hits = new BehaviorSubject([]);
+
+  positionObservable: Observable<Geoposition>;
+  positionWatcher: Subscription;
 
   constructor(
     private db: AngularFireDatabase,
@@ -43,12 +51,12 @@ export class GeoProvider {
   /// Queries database for nearby locations
   /// Maps results to the hits BehaviorSubject
   getLocations(radius: number, coords: Array<number>) {
-    const geoQuery = this.geoFire.query({
+    this.geoQueryToilets = this.geoFire.query({
       center: coords,
       radius: radius
     });
 
-    geoQuery.on('key_entered', (key, location, distance) => {
+    this.geoQueryToilets.on('key_entered', (key, location, distance) => {
       const toilet = this.db.object(`/toilets/${key}`).valueChanges();
 
       let hit = {
@@ -75,18 +83,21 @@ export class GeoProvider {
       this.hits.next(currentHits)
     });
 
-    geoQuery.on('key_exited', (key, location, distance) => {
+    this.geoQueryToilets.on('key_exited', (key, location, distance) => {
 
       let currentHits = remove(this.hits.value, hit => hit.key !== key);
 
       this.hits.next(currentHits)
     });
 
-    this.geolocation.watchPosition({ enableHighAccuracy: true }).subscribe(pos => {
-      geoQuery.updateCriteria({
+    this.positionObservable = this.geolocation.watchPosition({ enableHighAccuracy: true });
+
+    this.positionWatcher = this.positionObservable.subscribe(pos => {
+      this.geoQueryToilets.updateCriteria({
         center: [pos.coords.latitude, pos.coords.longitude],
         radius: 1
       });
+      console.log('animal')
     });
   }
 }

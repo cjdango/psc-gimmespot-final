@@ -7,12 +7,17 @@
 <ion-header text-center>
 
   <ion-navbar mode="ios">
-    <ion-buttons start (click)="toggleMenu()">
-      <button ion-button icon-only>
+    <ion-buttons start>
+      <button (click)="toggleMenu()" ion-button icon-only>
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>Gimme Spot</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="manualOrGPS()">
+        {{ switchText }}
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

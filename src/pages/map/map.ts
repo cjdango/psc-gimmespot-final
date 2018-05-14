@@ -5,10 +5,13 @@ import mapboxgl, { Marker } from 'mapbox-gl';
 import { MapProvider } from '../../providers/map/map';
 
 import MapboxCircle from 'mapbox-gl-circle'
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import GeoFire, { GeoQuery } from 'geofire';
 
 import remove from 'lodash/remove';
+
+import {Observable} from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 /**
  * Generated class for the MapPage page.
  *
@@ -23,14 +26,19 @@ import remove from 'lodash/remove';
 export class MapPage {
   map: mapboxgl.Map
 
-  positionWatcher: any;
-  subscription: any;
+  positionObservable: Observable<Geoposition>;
+  positionWatcher: Subscription;
 
   hits: any;
 
   geoQuery: GeoQuery;
 
   markers = [] as { key: string, marker: mapboxgl.Marker }[];
+
+  myCircle = new MapboxCircle({ lat: 0, lng: 0 }, 1000, { fillColor: '#29AB87' });
+
+  switchText: string = 'GPS';
+  isManual: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -64,16 +72,59 @@ export class MapPage {
       style: 'mapbox://styles/cjdango/cjgtegh4e000v2rpda91p4af2'
     });
 
-    var myCircle = new MapboxCircle({ lat: this.geoProvider.currentUserPos.lat, lng: this.geoProvider.currentUserPos.lng }, 1000, {
-      fillColor: '#29AB87'
-    }).addTo(this.map);
+    this.myCircle
+      .setCenter({ lat: this.geoProvider.currentUserPos.lat, lng: this.geoProvider.currentUserPos.lng })
+      .addTo(this.map);
 
     this.geoQuery = this.mapProvider.queryMarkers([this.geoProvider.currentUserPos.lat, this.geoProvider.currentUserPos.lng]);
 
-    this.positionWatcher = this.geolocation.watchPosition({ enableHighAccuracy: true }).subscribe(pos => {
-      myCircle.setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    this.positionObservable = this.geolocation.watchPosition({ enableHighAccuracy: true });
+
+    this.watchPos();
+
+    console.log(this.myCircle)
+
+  }
+
+  private onClickListener = (e) => {
+    this.myCircle.setCenter({ lat: e.lngLat.lat, lng: e.lngLat.lng });
+    this.mapProvider.updateQueryCrit(this.geoQuery, [e.lngLat.lat, e.lngLat.lng]);
+    this.mapProvider.updateQueryCrit(this.geoProvider.geoQueryToilets, [e.lngLat.lat, e.lngLat.lng]);
+  }
+
+  private watchPos() {
+    this.positionWatcher = this.positionObservable.subscribe(pos => {
+      this.myCircle.setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
       this.mapProvider.updateQueryCrit(this.geoQuery, [pos.coords.latitude, pos.coords.longitude]);
+      console.log('watch')
     });
+  }
+
+  manualOrGPS() {
+
+    if (!this.isManual) {
+      this.switchText = 'Manual';
+
+      this.positionWatcher.unsubscribe();
+      try {
+        this.geoProvider.positionWatcher.unsubscribe();
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.map.on('click', this.onClickListener);
+
+    } else {
+      this.watchPos();
+
+      this.geoProvider.positionWatcher = this.geoProvider.positionObservable.subscribe(pos => {
+        this.mapProvider.updateQueryCrit(this.geoProvider.geoQueryToilets, [pos.coords.latitude, pos.coords.longitude]);
+      });
+
+      this.map.off('click', this.onClickListener);
+      this.switchText = 'GPS';
+    }
+    this.isManual = !this.isManual;
   }
 
   private populateMap() {
@@ -100,7 +151,7 @@ export class MapPage {
 
       this.geoQuery.on('key_moved', (key, location, distance) => {
         this.markers.forEach(m => {
-          if(m.key === key) 
+          if (m.key === key)
             m.marker.setLngLat([location[1], location[0]]);
         });
       });

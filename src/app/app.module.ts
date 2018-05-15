@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login'
@@ -18,6 +19,7 @@ import { ToiletDetailsPage } from '../pages/toilet-details/toilet-details';
 import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 import { ConvoPage } from '../pages/convo/convo';
 import { ReviewsPage } from '../pages/reviews/reviews';
+import { ReservationsPage } from '../pages/reservations/reservations';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -46,7 +48,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ToiletDetailsPage,
     ToiletFormPage,
     ConvoPage,
-    ReviewsPage
+    ReviewsPage,
+    ReservationsPage
   ],
   imports: [
     BrowserModule,
@@ -71,13 +74,15 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ToiletDetailsPage,
     ToiletFormPage,
     ConvoPage,
-    ReviewsPage
+    ReviewsPage,
+    ReservationsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Geolocation,
     Camera,
+    BarcodeScanner,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     MapProvider,

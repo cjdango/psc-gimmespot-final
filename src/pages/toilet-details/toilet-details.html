@@ -48,6 +48,7 @@
 
 <ion-footer ion-row padding>
   <button ion-button mode="ios" ion-col full color="secondary" (click)="onConvoPage()">Chat Host</button>
-  <button ion-button mode="ios" ion-col full (click)="reserve()">Reserve</button>
-  
+  <button ion-button mode="ios" ion-col full [disabled]="isReserved" (click)="reserve()">
+    Reserve
+  </button>
 </ion-footer>

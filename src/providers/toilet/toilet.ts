@@ -43,7 +43,7 @@ export class ToiletProvider {
     return this.db.object(`/toilets/${key}`).remove();
   }
 
-  updateToilet(key: string, data: Toilet) {
+  updateToilet(key: string, data) {
     return this.db.object(`/toilets/${key}`).update(data);
   }
 

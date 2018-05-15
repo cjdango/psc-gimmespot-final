@@ -4,6 +4,7 @@ import { ListPage } from '../list/list';
 import { MapPage } from '../map/map';
 import { PicturePage } from '../picture/picture';
 import { ToiletCrudPage } from '../toilet-crud/toilet-crud';
+import { ReservationsPage } from '../reservations/reservations';
 import { AuthProvider } from '../../providers/auth/auth';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -45,6 +46,11 @@ export class TabPage {
   showToiletCrudPage() {
     this.navCtrl.push(ToiletCrudPage);
   }
+
+  showReservations() {
+    this.navCtrl.push(ReservationsPage);
+  }
+
 
   signOut() {
     this.authProvider.signOut();

@@ -31,6 +31,7 @@ import { MapProvider } from '../providers/map/map';
 import { ToiletProvider } from '../providers/toilet/toilet';
 import { PictureProvider } from '../providers/picture/picture';
 import { GeoProvider } from '../providers/geo/geo';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { GeoProvider } from '../providers/geo/geo';
     AngularFireDatabaseModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    Ionic2RatingModule
+    Ionic2RatingModule,
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

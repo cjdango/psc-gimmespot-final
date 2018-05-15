@@ -39,10 +39,15 @@
     <img [src]="photoURL | async" width="200" height="200" />
   </div>
   <p>{{toilet.desc}}</p>
+  <ion-card>
+    <ngx-qrcode [qrc-value]="qrData"></ngx-qrcode>
+  </ion-card>
 </ion-content>
+
+
 
 <ion-footer ion-row padding>
   <button ion-button mode="ios" ion-col full color="secondary" (click)="onConvoPage()">Chat Host</button>
-  <button ion-button mode="ios" ion-col full>Reserve</button>
+  <button ion-button mode="ios" ion-col full (click)="reserve()">Reserve</button>
   
 </ion-footer>

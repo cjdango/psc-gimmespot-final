@@ -97,14 +97,15 @@ export class AuthProvider {
   }
 
   //// Helpers ////
-  updateUserData(): void {
+  updateUserData(photoURL=''): void {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
     let path = `users/${this.currentUserId}`; // Endpoint on firebase
 
     let data = {
       email: this.authState.email,
-      name: this.authState.displayName
+      name: this.authState.displayName,
+      photoURL
     }
 
     this.db.object(path).update(data)

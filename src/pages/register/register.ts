@@ -44,7 +44,7 @@ export class RegisterPage {
             photoURL,
             displayName: this.displayName
           }).then((a) => {
-            this.authProvider.updateUserData();
+            this.authProvider.updateUserData(photoURL);
             alert('Updated: displayName, photoURL');
           });
         }

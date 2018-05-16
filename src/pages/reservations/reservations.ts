@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ToiletProvider } from '../../providers/toilet/toilet';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the ReservationsPage page.
@@ -16,29 +17,52 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class ReservationsPage {
   reservations = [];
-  reservationsObservable: any;
+  reservationsObserver: any;
+
+  userObserver: any;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public toiletProvider: ToiletProvider,
-    public barcodeScanner: BarcodeScanner
+    public barcodeScanner: BarcodeScanner,
+    public db: AngularFireDatabase
   ) {
   }
 
   ionViewDidLoad() {
-    this.reservationsObservable =
-      this.toiletProvider.getUserToilets().subscribe(toilets => {
-        toilets.forEach(t => {
+    this.reservationsObserver = this.toiletProvider.getUserToilets()
+      .subscribe(toilets => {
+
+        const mapToilets = toilets.map(t => {
+          const reservation = { ...t };
+
+          this.userObserver = this.db.object(`/users/${t.reserved_by}`)
+            .valueChanges().subscribe((user: any) => {
+              if (user) {
+                reservation.guestPhotoURL = user.photoURL;
+                reservation.guestName = user.name;
+                console.log(user.name)
+                // subscription.unsubscribe();
+              }
+            });
+
+          return reservation;
+        });
+
+
+        mapToilets.forEach(t => {
           if (t.reserved_by) {
-            this.reservations.push(t.reserved_by);
+            this.reservations.push(t);
           }
         });
+
       });
   }
 
   ionViewWillLeave() {
-    this.reservationsObservable.unsubscribe();
+    this.reservationsObserver.unsubscribe();
+    this.userObserver.unsubscribe();
   }
 
   scanQR(userKey) {

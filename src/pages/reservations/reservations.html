@@ -14,9 +14,29 @@
 
 
 <ion-content>
-  <ion-list>
+  <!-- <ion-list>
     <button ion-item *ngFor="let res of reservations" (click)="scanQR(res)">
       {{res}}
     </button>
-  </ion-list>
+  </ion-list> -->
+  <ion-card *ngFor="let res of reservations">
+
+    <ion-item padding-left>
+      <ion-avatar item-start>
+        <img *ngIf="res.guestPhotoURL; else guestPhoto" [src]="res.guestPhotoURL">
+        <ng-template #guestPhoto>
+          <img src="assets/imgs/logo.png">
+        </ng-template>
+      </ion-avatar>
+      <h2><span ion-text color="ash">Name:</span> {{res.guestName}}</h2>
+      <button ion-button outline color="secondary">View Profile</button>
+    </ion-item>
+
+    <ion-card-content>
+      <h2><span ion-text color="ash">Toilet reserved:</span> {{res.name}}</h2>
+    </ion-card-content>
+
+    <button ion-button full no-margin (click)="scanQR(res)">Scan QR Code</button>
+
+  </ion-card>
 </ion-content>

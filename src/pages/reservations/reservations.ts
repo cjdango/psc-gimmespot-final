@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { ToiletProvider } from '../../providers/toilet/toilet';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ProfilePage } from '../profile/profile';
 
 /**
  * Generated class for the ReservationsPage page.
@@ -74,5 +75,10 @@ export class ReservationsPage {
       console.log('Error', err);
     });
   }
+
+  showProfile() {
+    this.navCtrl.push(ProfilePage);
+  }
+
 
 }

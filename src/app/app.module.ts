@@ -20,6 +20,7 @@ import { ToiletFormPage } from '../pages/toilet-form/toilet-form';
 import { ConvoPage } from '../pages/convo/convo';
 import { ReviewsPage } from '../pages/reviews/reviews';
 import { ReservationsPage } from '../pages/reservations/reservations';
+import { ProfilePage } from '../pages/profile/profile';
 
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { AngularFireModule } from 'angularfire2';
@@ -49,7 +50,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ToiletFormPage,
     ConvoPage,
     ReviewsPage,
-    ReservationsPage
+    ReservationsPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -75,7 +77,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ToiletFormPage,
     ConvoPage,
     ReviewsPage,
-    ReservationsPage
+    ReservationsPage,
+    ProfilePage
   ],
   providers: [
     StatusBar,

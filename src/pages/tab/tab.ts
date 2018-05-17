@@ -8,6 +8,7 @@ import { ReservationsPage } from '../reservations/reservations';
 import { AuthProvider } from '../../providers/auth/auth';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ProfilePage } from '../profile/profile';
 
 /**
  * Generated class for the TabPage tabs.
@@ -49,6 +50,10 @@ export class TabPage {
 
   showReservations() {
     this.navCtrl.push(ReservationsPage);
+  }
+
+  showProfile() {
+    this.navCtrl.push(ProfilePage);
   }
 
 

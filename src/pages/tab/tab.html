@@ -1,7 +1,7 @@
 <ion-menu [content]="tabs">
     <ion-content>
         <div padding text-center>
-            <img [src]="photoURL" width="100" height="100" alt="">
+            <img class="circle-pic" [src]="photoURL" width="100" height="100" alt="" (click)="showProfile()">
             <h5 ion-text>{{ displayName }}</h5>
         </div>
 

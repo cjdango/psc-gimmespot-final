@@ -13,6 +13,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { GeoProvider } from '../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
+
+import * as firebase from 'firebase'
 @Component({
   templateUrl: 'app.html',
   providers: [GeoProvider, Geolocation]
@@ -36,8 +38,7 @@ export class MyApp {
       splashScreen.hide();
     });
 
-
-    authProvider.currentUserObservable.subscribe(auth => {
+    firebase.auth().onAuthStateChanged(auth => {
       this.rootPage = auth ? TabPage : LoginPage;
       if (auth) {
         this.geolocation.getCurrentPosition({ enableHighAccuracy: true }).then((pos) => {

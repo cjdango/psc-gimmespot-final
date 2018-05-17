@@ -26,7 +26,7 @@ export class AuthProvider {
   ) {
 
     this.afAuth.authState.subscribe((auth: User) => {
-      if (auth) this.authState = auth;
+      this.authState = auth;
     });
   }
 
@@ -93,11 +93,11 @@ export class AuthProvider {
   //// Sign Out ////
   signOut(): void {
     this.afAuth.auth.signOut();
-    this.authState = null;
+    // this.authState = null;
   }
 
   //// Helpers ////
-  updateUserData(photoURL=''): void {
+  updateUserData(photoURL = ''): void {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
     let path = `users/${this.currentUserId}`; // Endpoint on firebase

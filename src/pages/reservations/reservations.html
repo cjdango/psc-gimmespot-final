@@ -34,9 +34,17 @@
 
     <ion-card-content>
       <h2><span ion-text color="ash">Toilet reserved:</span> {{res.name}}</h2>
+      <h1 *ngIf="res.isGuestVerified" text-center ion-text color="secondary">VERIFIED GUEST</h1>
     </ion-card-content>
 
-    <button ion-button full no-margin (click)="scanQR(res)">Scan QR Code</button>
+    <button *ngIf="!res.isGuestVerified; else closeBtn" 
+    ion-button full no-margin 
+    (click)="scanQR(res.guestId, res)">Scan QR Code</button>
+
+    <ng-template #closeBtn>
+      <button ion-button full no-margin 
+      (click)="close(res)" color="danger">Close</button>
+    </ng-template>
 
   </ion-card>
 </ion-content>

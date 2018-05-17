@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the ProfilePage page.
  *
@@ -15,7 +15,14 @@ import { NavController, NavParams } from 'ionic-angular';
 export class ProfilePage {
   rating = 4;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  qrData: string;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public authProvider: AuthProvider
+  ) {
+    this.qrData = authProvider.currentUserId;
   }
 
   ionViewDidLoad() {

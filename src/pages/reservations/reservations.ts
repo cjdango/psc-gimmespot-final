@@ -34,6 +34,7 @@ export class ReservationsPage {
   ionViewDidLoad() {
     this.reservationsObserver = this.toiletProvider.getUserToilets()
       .subscribe(toilets => {
+        this.reservations = [];
 
         const mapToilets = toilets.map(t => {
           const reservation = { ...t };
@@ -41,10 +42,9 @@ export class ReservationsPage {
           this.userObserver = this.db.object(`/users/${t.reserved_by}`)
             .valueChanges().subscribe((user: any) => {
               if (user) {
+                reservation.guestId = t.reserved_by;
                 reservation.guestPhotoURL = user.photoURL;
                 reservation.guestName = user.name;
-                console.log(user.name)
-                // subscription.unsubscribe();
               }
             });
 
@@ -66,18 +66,24 @@ export class ReservationsPage {
     this.userObserver.unsubscribe();
   }
 
-  scanQR(userKey) {
+  scanQR(userKey, reservation: any) {
     this.barcodeScanner.scan().then(res => {
       if (userKey === res.text) {
-        alert('User Confirmed');
+        this.toiletProvider.updateToilet(reservation.key, {isGuestVerified: true});
+      } else {
+        alert('Stranger not verified!!!');
       }
     }).catch(err => {
-      console.log('Error', err);
+      console.log(err);
     });
   }
 
   showProfile() {
     this.navCtrl.push(ProfilePage);
+  }
+
+  close(reservation) {
+    this.toiletProvider.updateToilet(reservation.key, {reserved_by: '', isGuestVerified: false});
   }
 
 

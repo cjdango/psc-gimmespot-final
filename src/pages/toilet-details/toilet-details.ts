@@ -22,8 +22,6 @@ export class ToiletDetailsPage {
   toilet: any;
   photoURL: string = 'assets/imgs/logo.png';
 
-  qrData: string;
-
   isReserved: boolean;
 
   isReservedObservable: any;
@@ -37,12 +35,12 @@ export class ToiletDetailsPage {
   ) {
     this.toilet = navParams.get('hit').toilet;
     this.photoURL = navParams.get('hit').photoURL;
-    this.qrData = authProvider.currentUserId;
 
     this.isReservedObservable = toiletProvider
       .getToiletById(this.navParams.get('hit').key)
       .subscribe(t => {
         this.isReserved = !!t.reserved_by;
+        console.log('isReserved:', this.isReserved)
       });
   }
 

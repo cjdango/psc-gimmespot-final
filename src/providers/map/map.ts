@@ -31,6 +31,7 @@ export class MapProvider {
   }
 
   createMarker(key: string, coords: GeoFire.Location) {
+    this.db.object(`/toilets/${key}`).update({location: [coords[1], coords[0]]});
     return this.geoFire.set(key, [coords[1], coords[0]]);
   }
 

@@ -66,7 +66,8 @@ export class ToiletDetailsPage {
     // update db
     const toiletKey = this.navParams.get('hit').key;
     this.toiletProvider.updateToilet(toiletKey, {
-      reserved_by: this.authProvider.currentUserId
+      reserved_by: this.authProvider.currentUserId,
+      guestName: this.authProvider.currentUserDisplayName
     });
 
     this.presentConfirm();
@@ -102,9 +103,7 @@ export class ToiletDetailsPage {
             });
             geoQuery.on('key_entered', (key, location, distance) => {
               this.posSubscriber.unsubscribe();
-              this.geofire.remove(key);
               geoQuery.cancel();
-
             });
           }
         }

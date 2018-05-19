@@ -83,7 +83,8 @@ export class ReservationsPage {
   }
 
   close(reservation) {
-    this.toiletProvider.updateToilet(reservation.key, {reserved_by: '', isGuestVerified: false});
+    this.toiletProvider
+      .updateToilet(reservation.key, {reserved_by: '', guestName: '', isGuestVerified: false});
   }
 
 

@@ -80,13 +80,19 @@ export class AuthProvider {
   //// Email/Password Auth ////
   emailSignUp(email: string, password: string, displayName: string, navCtrl: NavController) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then(() => this.updateUserData())
+      .then((auth) => {
+        this.authState = auth;
+        this.updateUserData();
+      })
       .catch(error => console.log(error));
   }
 
   emailLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then(() => this.updateUserData())
+      .then((auth) => {
+        this.authState = auth;
+        this.updateUserData();
+      })
       .catch(error => console.log(error));
   }
 
@@ -101,15 +107,15 @@ export class AuthProvider {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
     let path = `users/${this.currentUserId}`; // Endpoint on firebase
-
+console.log(this.authenticated)
     let data = {
       email: this.authState.email,
       name: this.authState.displayName,
-      photoURL
+      photoURL: photoURL ? photoURL : this.authState.photoURL
     }
 
     this.db.object(path).update(data)
-      .catch(error => console.log(error));
+      .catch(error => console.log('help',error));
 
   }
 

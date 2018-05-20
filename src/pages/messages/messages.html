@@ -15,9 +15,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let convo of convos | async">
+    <button (click)="openConvo()" ion-item *ngFor="let convo of convos | async">
         {{(convo.from | async)?.name}}
       <p>{{convo.context}}</p>
-    </ion-item>
+    </button>
   </ion-list>
 </ion-content>

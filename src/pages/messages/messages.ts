@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AuthProvider } from '../../providers/auth/auth';
 import "rxjs/add/operator/map";
+import { ConvoPage } from '../convo/convo';
 
 /**
  * Generated class for the MessagesPage page.
@@ -40,7 +41,7 @@ export class MessagesPage {
         return changes.map(c => {
           const from = this.db.object(`/users/${c.payload.val().last_msg.from}`)
             .snapshotChanges().map(c => ({ key: c.key, ...c.payload.val() }));
-            
+
           return {
             context: c.payload.val().last_msg.context,
             from
@@ -48,6 +49,10 @@ export class MessagesPage {
         })
 
       });
+  }
+
+  openConvo() {
+    this.navCtrl.push(ConvoPage, {other_uid: this.currUid})
   }
 
 }

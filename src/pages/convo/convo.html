@@ -14,24 +14,9 @@
 
 <ion-content padding>
   <div class="feed">
-    <div class="left-msg">
+    <div *ngFor="let msg of feed | async" [class]="msg.from === currUid ? 'right-msg' : 'left-msg'">
       <span class="msg-context">
-        left
-      </span>
-    </div>
-    <div class="right-msg">
-      <span class="msg-context">
-        right
-      </span>
-    </div>
-    <div class="right-msg">
-      <span class="msg-context">
-        Lorem ipsum dolor sit amet consectetur.
-      </span>
-    </div>
-    <div class="left-msg">
-      <span class="msg-context">
-        Lorem ipsum dolor sit amet consectetur.
+        {{msg.context}}
       </span>
     </div>
   </div>
@@ -41,10 +26,10 @@
 <ion-footer>
   <ion-row align-items-center>
     <ion-col col-10 no-padding>
-      <ion-input type="text" placeholder="Message here..."></ion-input>
+      <ion-input [(ngModel)]="message" type="text" placeholder="Message here..."></ion-input>
     </ion-col>
     <ion-col col-2 no-padding>
-      <button no-margin mode="ios" ion-button full>send</button>
+      <button no-margin mode="ios" ion-button full (click)="send()">send</button>
     </ion-col>
   </ion-row>
 </ion-footer>

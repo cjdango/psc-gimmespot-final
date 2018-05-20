@@ -113,7 +113,8 @@ export class ToiletDetailsPage {
   }
 
   onConvoPage() {
-    this.navCtrl.push(ConvoPage);
+    console.log(this.toilet.owner_id)
+    this.navCtrl.push(ConvoPage, { other_uid: this.toilet.owner_id });
   }
 
   onReviewsPage() {

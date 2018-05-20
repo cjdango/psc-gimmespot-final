@@ -22,12 +22,28 @@
 
 
 <ion-content padding>
-  <h1 ion-text color="primary">{{toilet.name}}</h1>
-  <h3 ion-text color="secondary">₱{{toilet.cost}}</h3>
-  <ion-note>Host: {{toilet.owner}}</ion-note>
-  <div>
-    <button ion-button outline full (click)="onReviewsPage()">Reviews</button>
-  </div>
+  <ion-row align-items-center>
+    <ion-col col-5>
+      <h1 no-margin ion-text color="primary">{{toilet.name}}</h1>
+    </ion-col>
+    <ion-col>
+      <button no-margin full ion-button outline (click)="onReviewsPage()">Reviews</button>
+    </ion-col>
+  </ion-row>
+  <ion-row align-items-center>
+    <ion-col col-5>
+      <ion-note>Host: {{toilet.owner}}</ion-note>
+    </ion-col>
+    <ion-col>
+      <button no-margin full ion-button outline (click)="onProfilePage()">View Profile</button>
+    </ion-col>
+  </ion-row>
+  <ion-row align-items-center>
+    <ion-col text-center>
+      <h3 margin ion-text color="secondary">₱{{toilet.cost}}</h3>
+    </ion-col>
+  </ion-row>
+
 
 
   <div id="image" text-center>

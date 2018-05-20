@@ -9,6 +9,7 @@ import { ToiletProvider } from '../../providers/toilet/toilet';
 import GeoFire from 'geofire';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ProfilePage } from '../profile/profile';
 
 /**
  * Generated class for the ToiletDetailsPage page.
@@ -122,6 +123,13 @@ export class ToiletDetailsPage {
     this.navCtrl.push(ReviewsPage, {
       review_type: 'toilet_reviews',
       item_id: toiletKey,
+      host_id: this.navParams.get('hit').toilet.owner_id
+    });
+  }
+
+  onProfilePage() {
+    this.navCtrl.push(ProfilePage, {
+      from_toilet: true,
       host_id: this.navParams.get('hit').toilet.owner_id
     });
   }

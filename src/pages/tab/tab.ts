@@ -9,6 +9,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { GeoProvider } from '../../providers/geo/geo';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ProfilePage } from '../profile/profile';
+import { MessagesPage } from '../messages/messages';
 
 /**
  * Generated class for the TabPage tabs.
@@ -54,6 +55,10 @@ export class TabPage {
 
   showProfile() {
     this.navCtrl.push(ProfilePage);
+  }
+
+  showConvos() {
+    this.navCtrl.push(MessagesPage);
   }
 
 

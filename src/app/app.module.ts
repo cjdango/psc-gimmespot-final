@@ -35,6 +35,7 @@ import { ToiletProvider } from '../providers/toilet/toilet';
 import { PictureProvider } from '../providers/picture/picture';
 import { GeoProvider } from '../providers/geo/geo';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { MessagesPage } from '../pages/messages/messages';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ConvoPage,
     ReviewsPage,
     ReservationsPage,
-    ProfilePage
+    ProfilePage,
+    MessagesPage
   ],
   imports: [
     BrowserModule,
@@ -78,7 +80,8 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     ConvoPage,
     ReviewsPage,
     ReservationsPage,
-    ProfilePage
+    ProfilePage,
+    MessagesPage
   ],
   providers: [
     StatusBar,

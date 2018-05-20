@@ -30,10 +30,10 @@ export class ConvoPage {
     public db: AngularFireDatabase,
     public authProvider: AuthProvider
   ) {
-    
+
     const other_uid = navParams.get('other_uid');
     this.currUid = authProvider.currentUserId;
-    this.roomName = (this.currUid<other_uid ? `${this.currUid}_${other_uid}` : `${other_uid}_${this.currUid}`);
+    this.roomName = (this.currUid < other_uid ? `${this.currUid}_${other_uid}` : `${other_uid}_${this.currUid}`);
     this.convoRef = db.list(`/convos/${this.roomName}`);
 
     this.feed = this.listMessages();
@@ -44,6 +44,12 @@ export class ConvoPage {
       context: this.message,
       from: this.authProvider.currentUserId
     });
+
+    this.db.object(`/user_convos/${this.currUid}/${this.roomName}/last_msg`).update({
+      context: this.message,
+      from: this.authProvider.currentUserId
+    });
+
     this.message = '';
   }
 

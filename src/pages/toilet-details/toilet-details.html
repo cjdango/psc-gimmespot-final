@@ -25,14 +25,9 @@
   <h1 ion-text color="primary">{{toilet.name}}</h1>
   <h3 ion-text color="secondary">₱{{toilet.cost}}</h3>
   <ion-note>Host: {{toilet.owner}}</ion-note>
-  <ion-row align-items-center padding-top padding-bottom>
-    <ion-col col-7 no-padding>
-      <rating [(ngModel)]="rating" readOnly="true"></rating>
-    </ion-col>
-    <ion-col col-5 no-padding>
-      <button ion-button clear mode="ios" (click)="onReviewsPage()" no-margin>Reviews</button>
-    </ion-col>
-  </ion-row>
+  <div>
+    <button ion-button outline full (click)="onReviewsPage()">Reviews</button>
+  </div>
 
 
   <div id="image" text-center>

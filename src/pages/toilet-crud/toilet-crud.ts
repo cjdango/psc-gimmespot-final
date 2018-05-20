@@ -6,6 +6,7 @@ import { ReviewsPage } from '../reviews/reviews';
 import { Observable } from 'rxjs/Observable';
 import { ToiletProvider } from '../../providers/toilet/toilet';
 import { MapProvider } from '../../providers/map/map';
+import { AuthProvider } from '../../providers/auth/auth';
 
 /**
  * Generated class for the ToiletCrudPage page.
@@ -26,7 +27,8 @@ export class ToiletCrudPage {
     public platform: Platform,
     public navCtrl: NavController,
     public toiletProvider: ToiletProvider,
-    public mapProvider: MapProvider
+    public mapProvider: MapProvider,
+    public authProvider: AuthProvider
   ) {
     this.myToilets = toiletProvider.getUserToilets();
   }
@@ -44,8 +46,12 @@ export class ToiletCrudPage {
     this.mapProvider.removeMarker(key);
   }
 
-  viewReviews() {
-    this.navCtrl.push(ReviewsPage)
+  viewReviews(key: string) {
+    this.navCtrl.push(ReviewsPage, { 
+      review_type: 'toilet_reviews', 
+      item_id: key,
+      host_id: this.authProvider.currentUserId
+    });
   }
 
 }

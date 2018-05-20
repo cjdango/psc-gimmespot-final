@@ -118,7 +118,12 @@ export class ToiletDetailsPage {
   }
 
   onReviewsPage() {
-    this.navCtrl.push(ReviewsPage);
+    const toiletKey = this.navParams.get('hit').key;
+    this.navCtrl.push(ReviewsPage, {
+      review_type: 'toilet_reviews',
+      item_id: toiletKey,
+      host_id: this.navParams.get('hit').toilet.owner_id
+    });
   }
 
   close() {

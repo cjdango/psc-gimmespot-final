@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { GeoProvider } from '../../providers/geo/geo';
 import mapboxgl, { Marker, Popup } from 'mapbox-gl';
+import Directions from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
 import { MapProvider } from '../../providers/map/map';
 
 import MapboxCircle from 'mapbox-gl-circle'
@@ -77,6 +78,16 @@ export class MapPage {
       style: 'mapbox://styles/cjdango/cjgtegh4e000v2rpda91p4af2'
     });
 
+    const directions = new Directions({
+      accessToken: mapboxgl.accessToken,
+      controls: {
+        instructions: false,
+        inputs: false
+      }
+    });
+
+    directions.setOrigin([this.geoProvider.currentUserPos.lng, this.geoProvider.currentUserPos.lat])
+
     this.map.addControl(new mapboxgl.GeolocateControl({
       positionOptions: {
         enableHighAccuracy: true
@@ -84,6 +95,8 @@ export class MapPage {
       trackUserLocation: true,
       showUserLocation: true
     }));
+
+    this.map.addControl(directions);
 
     this.myCircle
       .setCenter({ lat: this.geoProvider.currentUserPos.lat, lng: this.geoProvider.currentUserPos.lng })

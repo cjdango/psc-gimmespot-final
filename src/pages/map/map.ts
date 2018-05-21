@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { GeoProvider } from '../../providers/geo/geo';
-import mapboxgl, { Marker } from 'mapbox-gl';
+import mapboxgl, { Marker, Popup } from 'mapbox-gl';
 import { MapProvider } from '../../providers/map/map';
 
 import MapboxCircle from 'mapbox-gl-circle'
@@ -10,8 +10,11 @@ import GeoFire, { GeoQuery } from 'geofire';
 
 import remove from 'lodash/remove';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { greenPinSVG, redPinSVG, orangePinSVG } from './marker';
+import { ToiletProvider } from '../../providers/toilet/toilet';
+import { PictureProvider } from '../../providers/picture/picture';
 /**
  * Generated class for the MapPage page.
  *
@@ -46,7 +49,9 @@ export class MapPage {
     public menuCtrl: MenuController,
     public geoProvider: GeoProvider,
     public mapProvider: MapProvider,
-    public geolocation: Geolocation
+    public geolocation: Geolocation,
+    public toiletProvider: ToiletProvider,
+    public pictureProvider: PictureProvider
   ) {
 
   }
@@ -71,6 +76,14 @@ export class MapPage {
       zoom: 14,
       style: 'mapbox://styles/cjdango/cjgtegh4e000v2rpda91p4af2'
     });
+
+    this.map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserLocation: true
+    }));
 
     this.myCircle
       .setCenter({ lat: this.geoProvider.currentUserPos.lat, lng: this.geoProvider.currentUserPos.lng })
@@ -129,12 +142,68 @@ export class MapPage {
 
   private populateMap() {
     this.map.on('load', () => {
-      const marker = new Marker();
+      // const marker = new Marker();
 
       this.geoQuery.on('key_entered', (key, location, distance) => {
-        const marker = new Marker()
+
+        // create the popup
+        var popup = new mapboxgl.Popup({
+          offset: {
+            'top': [0, 0],
+            'top-left': [0, 0],//[linearOffset, (markerHeight - markerRadius - linearOffset) * -1],
+            'top-right': [0, 0],//[-linearOffset, (markerHeight - markerRadius - linearOffset) * -1],
+            'bottom': [0, -50],
+            'bottom-left': [0, -50],
+            'bottom-right': [0, -50],
+            'left': [20, -35],
+            'right': [-20, -35]
+          },
+          closeButton: false
+        });
+
+
+        // create DOM element for the marker
+        var el = document.createElement('div');
+        el.id = 'marker';
+
+        const marker = new Marker(el, {
+          offset: [0, -25]
+        })
           .setLngLat([location[1], location[0]])
+          .setPopup(popup)
           .addTo(this.map);
+
+        this.toiletProvider.getToiletById(key).subscribe(toilet => {
+          let statusStyle;
+
+          if (toilet.status === 'Available') {
+            el.innerHTML = greenPinSVG;
+            statusStyle = "#00E640";
+          } else if (toilet.status === 'Reserved') {
+            el.innerHTML = orangePinSVG;
+            statusStyle = "#EB9532";
+          } else if (toilet.status === 'Occupied') {
+            el.innerHTML = redPinSVG;
+            statusStyle = "#D91E18";
+          }
+
+          this.pictureProvider.getDownloadURL(`toilets/${key}/toiletPicture`).subscribe(photoURL => {
+            popup.setHTML(`
+              <img src="${photoURL}" width="120" height="120" />
+              <h5 align="center">${toilet.name}: <span style="color:#488aff">₱${toilet.cost}</span></h5>
+              <h4 
+                align="center" 
+                style="color:white; 
+                background:${statusStyle};
+                text-transform:uppercase;
+                ">
+                ${toilet.status}
+              </h4>
+            `);
+          })
+        });
+
+
 
         this.markers.push({ key, marker });
       });

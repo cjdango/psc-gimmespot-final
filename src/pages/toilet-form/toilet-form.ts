@@ -123,7 +123,7 @@ export class ToiletFormPage implements OnInit, OnDestroy {
     this.toilet.owner = this.authProvider.currentUserDisplayName;
 
     const key = this.db.list('/toilets')
-      .push(this.toilet).key;
+      .push({...this.toilet, status: 'Available'}).key;
 
     try {
       await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)

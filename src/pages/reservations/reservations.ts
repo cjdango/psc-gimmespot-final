@@ -78,8 +78,8 @@ export class ReservationsPage {
     });
   }
 
-  showProfile() {
-    this.navCtrl.push(ProfilePage);
+  showProfile(host_id: string) { // guest_id jd ni siya
+    this.navCtrl.push(ProfilePage, {host_id, from_toilet: true});
   }
 
   close(reservation) {

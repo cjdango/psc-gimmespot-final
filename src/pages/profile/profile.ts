@@ -70,6 +70,7 @@ export class ProfilePage {
       date: new Date().toDateString(),
       comment: this.comment
     })
+    this.comment = '';
   }
 
 }

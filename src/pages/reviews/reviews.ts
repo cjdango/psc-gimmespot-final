@@ -60,6 +60,7 @@ export class ReviewsPage {
       date: new Date().toDateString(),
       comment: this.comment
     })
+    this.comment = '';
   }
 
 }

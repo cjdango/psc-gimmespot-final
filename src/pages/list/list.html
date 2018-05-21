@@ -32,7 +32,7 @@
       <p>{{ hit.toilet.desc }}</p>
       <div id="item-end" item-end>
         <h1 ion-text color="secondary">₱{{ hit.toilet.cost }}</h1>
-        <span>
+        <span [style.color]="hit.statusColor">
           {{hit.toilet.status}}
         </span>
       </div>

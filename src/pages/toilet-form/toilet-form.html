@@ -27,13 +27,13 @@
     <ion-item text-center>
       <!-- <ion-input type="File" placeholder="Picture"></ion-input> -->
       <img [src]="pictureData" width="200" height="200" alt=""><br>
-      <button margin-top ion-button color="secondary" (click)="presentActionSheet()">Choose Photo</button>
+      <button margin-top ion-button color="primary" (click)="presentActionSheet()">Choose Photo</button>
     </ion-item>
   </ion-list>
   <ion-note>Location: </ion-note>
   <div id="map"></div>
-  <button ion-button full *ngIf="title === 'Add Toilet'; else saveBtn" (click)="addToilet()">Submit</button>
+  <button ion-button full color="mountain" *ngIf="title === 'Add Toilet'; else saveBtn" (click)="addToilet()">Submit</button>
   <ng-template #saveBtn>
-    <button ion-button full (click)="updateToilet()">Save</button>
+    <button ion-button full color="mountain" (click)="updateToilet()">Save</button>
   </ng-template>
 </ion-content>

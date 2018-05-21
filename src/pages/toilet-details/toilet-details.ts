@@ -35,6 +35,7 @@ export class ToiletDetailsPage {
   posObservable: any;
 
   status: string;
+  statusColor: string;
 
   geofire: GeoFire;
 
@@ -60,6 +61,13 @@ export class ToiletDetailsPage {
       .subscribe(t => {
         this.isReserved = !!t.reserved_by;
         this.status = t.status;
+        if (t.status === 'Available') {
+          this.statusColor = '#00E640';
+        } else if (t.status === 'Reserved') {
+          this.statusColor = '#EB9532';
+        } else if (t.status === 'Occupied') {
+          this.statusColor = '#D91E18';
+        }
       });
 
     this.geofire = new GeoFire(db.list('/running_men').query.ref);

@@ -74,8 +74,15 @@ export class GeoProvider {
 
 
 
-      toilet.subscribe(t => {
+      toilet.subscribe((t: any) => {
         hit.toilet = t
+        if (t.status === 'Available') {
+          hit.statusColor = '#00E640';
+        } else if (t.status === 'Reserved') {
+          hit.statusColor = '#EB9532';
+        } else if (t.status === 'Occupied') {
+          hit.statusColor = '#D91E18';
+        }
       })
 
       let currentHits = this.hits.value

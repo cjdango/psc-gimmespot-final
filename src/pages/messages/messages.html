@@ -15,7 +15,7 @@
 
 <ion-content>
   <ion-list>
-    <button (click)="openConvo()" ion-item *ngFor="let convo of convos | async">
+    <button ion-item *ngFor="let convo of convos | async" (click)="openConvo(convo.roomName, convo.users)">
         {{(convo.from | async)?.name}}
       <p>{{convo.context}}</p>
     </button>

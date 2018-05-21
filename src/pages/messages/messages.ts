@@ -42,17 +42,23 @@ export class MessagesPage {
           const from = this.db.object(`/users/${c.payload.val().last_msg.from}`)
             .snapshotChanges().map(c => ({ key: c.key, ...c.payload.val() }));
 
+          const users = c.payload.val().members
+
+          const roomName = (users[0] < users[1] ? `${users[0]}_${users[1]}` : `${users[1]}_${users[0]}`);
+
           return {
             context: c.payload.val().last_msg.context,
-            from
+            from,
+            roomName,
+            users
           }
         })
 
       });
   }
 
-  openConvo() {
-    this.navCtrl.push(ConvoPage, {other_uid: this.currUid})
+  openConvo(roomName: string, users: any) {
+    this.navCtrl.push(ConvoPage, { roomName, users })
   }
 
 }

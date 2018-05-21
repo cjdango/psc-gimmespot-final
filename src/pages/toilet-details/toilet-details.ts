@@ -38,6 +38,8 @@ export class ToiletDetailsPage {
 
   geofire: GeoFire;
 
+  isOwner: boolean;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -50,6 +52,8 @@ export class ToiletDetailsPage {
   ) {
     this.toilet = navParams.get('hit').toilet;
     this.photoURL = navParams.get('hit').photoURL;
+
+    this.isOwner = this.toilet.owner_id === authProvider.currentUserId;
 
     this.isReservedObservable = toiletProvider
       .getToiletById(this.navParams.get('hit').key)

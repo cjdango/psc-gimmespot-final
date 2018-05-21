@@ -41,6 +41,7 @@ export class MapPage {
 
   myCircle = new MapboxCircle({ lat: 0, lng: 0 }, 1000, { fillColor: '#29AB87' });
 
+  // directions: Directions;
   switchText: string = 'GPS';
   isManual: boolean = false;
 
@@ -78,15 +79,15 @@ export class MapPage {
       style: 'mapbox://styles/cjdango/cjgtegh4e000v2rpda91p4af2'
     });
 
-    const directions = new Directions({
-      accessToken: mapboxgl.accessToken,
-      controls: {
-        instructions: false,
-        inputs: false
-      }
-    });
+    // this.directions = new Directions({
+    //   accessToken: mapboxgl.accessToken,
+    //   controls: {
+    //     instructions: false,
+    //     inputs: false
+    //   }
+    // });
 
-    directions.setOrigin([this.geoProvider.currentUserPos.lng, this.geoProvider.currentUserPos.lat])
+    // this.directions.setOrigin([this.geoProvider.currentUserPos.lng, this.geoProvider.currentUserPos.lat])
 
     this.map.addControl(new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -96,7 +97,7 @@ export class MapPage {
       showUserLocation: true
     }));
 
-    this.map.addControl(directions);
+    // this.map.addControl(this.directions);
 
     this.myCircle
       .setCenter({ lat: this.geoProvider.currentUserPos.lat, lng: this.geoProvider.currentUserPos.lng })
@@ -120,6 +121,7 @@ export class MapPage {
 
   private watchPos() {
     this.positionWatcher = this.positionObservable.subscribe(pos => {
+      // this.directions.setOrigin([pos.coords.longitude, pos.coords.latitude]);
       this.myCircle.setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
       this.mapProvider.updateQueryCrit(this.geoQuery, [pos.coords.latitude, pos.coords.longitude]);
       console.log('watch')

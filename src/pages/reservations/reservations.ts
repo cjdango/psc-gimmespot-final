@@ -69,7 +69,7 @@ export class ReservationsPage {
   scanQR(userKey, reservation: any) {
     this.barcodeScanner.scan().then(res => {
       if (userKey === res.text) {
-        this.toiletProvider.updateToilet(reservation.key, {isGuestVerified: true});
+        this.toiletProvider.updateToilet(reservation.key, { isGuestVerified: true, status: 'Occupied' });
       } else {
         alert('Stranger not verified!!!');
       }
@@ -84,7 +84,7 @@ export class ReservationsPage {
 
   close(reservation) {
     this.toiletProvider
-      .updateToilet(reservation.key, {reserved_by: '', guestName: '', isGuestVerified: false});
+      .updateToilet(reservation.key, { reserved_by: '', guestName: '', isGuestVerified: false, status: 'Available' });
   }
 
 

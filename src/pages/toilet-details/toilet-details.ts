@@ -34,6 +34,8 @@ export class ToiletDetailsPage {
   posSubscriber: any;
   posObservable: any;
 
+  status: string;
+
   geofire: GeoFire;
 
   constructor(
@@ -53,7 +55,7 @@ export class ToiletDetailsPage {
       .getToiletById(this.navParams.get('hit').key)
       .subscribe(t => {
         this.isReserved = !!t.reserved_by;
-        console.log('isReserved:', this.isReserved)
+        this.status = t.status;
       });
 
     this.geofire = new GeoFire(db.list('/running_men').query.ref);
@@ -68,7 +70,8 @@ export class ToiletDetailsPage {
     const toiletKey = this.navParams.get('hit').key;
     this.toiletProvider.updateToilet(toiletKey, {
       reserved_by: this.authProvider.currentUserId,
-      guestName: this.authProvider.currentUserDisplayName
+      guestName: this.authProvider.currentUserDisplayName,
+      status: 'Reserved'
     });
 
     this.presentConfirm();
@@ -92,6 +95,7 @@ export class ToiletDetailsPage {
             console.log(this.navParams.get('hit'))
 
             const toiletKey = this.navParams.get('hit').key;
+
             this.posObservable = this.geolocation.watchPosition({ enableHighAccuracy: true });
 
             this.posSubscriber = this.posObservable.subscribe(pos => {
@@ -114,8 +118,7 @@ export class ToiletDetailsPage {
   }
 
   onConvoPage() {
-    console.log(this.toilet.owner_id)
-    this.navCtrl.push(ConvoPage, { other_uid: this.toilet.owner_id });
+    this.navCtrl.push(ConvoPage, { other_uid: this.toilet.owner_id, from_toilet: true });
   }
 
   onReviewsPage() {

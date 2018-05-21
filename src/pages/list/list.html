@@ -31,9 +31,9 @@
       <ion-note>{{ hit.toilet.owner }}</ion-note>
       <p>{{ hit.toilet.desc }}</p>
       <div id="item-end" item-end>
-        <h1 ion-text color="secondary">{{ hit.toilet.cost }}</h1>
+        <h1 ion-text color="secondary">₱{{ hit.toilet.cost }}</h1>
         <span>
-          <ion-badge>93</ion-badge> Reviews
+          {{hit.toilet.status}}
         </span>
       </div>
     </button>

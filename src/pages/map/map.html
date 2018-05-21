@@ -6,15 +6,15 @@
 -->
 <ion-header text-center>
 
-  <ion-navbar mode="ios">
+  <ion-navbar mode="ios" color="mountain">
     <ion-buttons start>
       <button (click)="toggleMenu()" ion-button icon-only>
-        <ion-icon name="menu"></ion-icon>
+        <ion-icon color="light" name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Gimme Spot</ion-title>
+    <ion-title ><span ion-text color="light">Gimme Spot</span></ion-title>
     <ion-buttons end>
-      <button ion-button (click)="manualOrGPS()">
+      <button color="light" ion-button (click)="manualOrGPS()">
         {{ switchText }}
       </button>
     </ion-buttons>

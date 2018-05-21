@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>reservations</ion-title>
+  <ion-navbar color="mountain">
+    <ion-title><span ion-text color="light">Reservations</span></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -29,7 +29,7 @@
         </ng-template>
       </ion-avatar>
       <h2><span ion-text color="ash">Name:</span> {{res.guestName}}</h2>
-      <button ion-button outline color="secondary" (click)="showProfile(res.guestId)">View Profile</button>
+      <button ion-button outline color="primary" (click)="showProfile(res.guestId)">View Profile</button>
     </ion-item>
 
     <ion-card-content>
@@ -38,7 +38,7 @@
     </ion-card-content>
 
     <button *ngIf="!res.isGuestVerified; else closeBtn" 
-    ion-button full no-margin 
+    ion-button full no-margin color="mountain"
     (click)="scanQR(res.guestId, res)">Scan QR Code</button>
 
     <ng-template #closeBtn>

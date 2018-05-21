@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Profile</ion-title>
+  <ion-navbar color="mountain">
+    <ion-title><span ion-text color="light">Profile</span></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,14 +15,14 @@
 
 <ion-content padding text-center>
   <img class="circle-pic" [src]="profilePic" width="100" height="100">
-
+  <h1 ion-text color="mountain" margin-top>{{profileName}}</h1>
   <ion-card *ngIf="isHost">
     <ngx-qrcode [qrc-value]="qrData"></ngx-qrcode>
   </ion-card>
-  <h1 ion-text color="ash">{{profileName}}</h1>
+  
   <ion-card margin-bottom>
     <ion-list>
-      <ion-item color="primary" padding-left>
+      <ion-item color="mountain" padding-left>
         <ion-icon name="mail" item-start></ion-icon>
         {{profileEmail}}
       </ion-item>

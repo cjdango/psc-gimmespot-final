@@ -39,10 +39,14 @@ export class MessagesPage {
       .map(changes => {
 
         return changes.map(c => {
-          const from = this.db.object(`/users/${c.payload.val().last_msg.from}`)
-            .snapshotChanges().map(c => ({ key: c.key, ...c.payload.val() }));
+          
 
           const users = c.payload.val().members
+
+          const other_user = users[0] === this.authProvider.currentUserId ? users[1] : users[0];
+
+          const from = this.db.object(`/users/${other_user}`)
+            .snapshotChanges().map(c => ({ key: c.key, ...c.payload.val() }));
 
           const roomName = (users[0] < users[1] ? `${users[0]}_${users[1]}` : `${users[1]}_${users[0]}`);
 

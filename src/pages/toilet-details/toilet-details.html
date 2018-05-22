@@ -61,7 +61,7 @@
 
 <ion-footer ion-row padding *ngIf="!isOwner">
   <button ion-button mode="ios" ion-col full color="secondary" (click)="onConvoPage()">Chat Host</button>
-  <button ion-button mode="ios" ion-col full [disabled]="isReserved" (click)="reserve()">
+  <button ion-button mode="ios" ion-col full [disabled]="!isAvailable" (click)="reserve()">
     Reserve
   </button>
 </ion-footer>

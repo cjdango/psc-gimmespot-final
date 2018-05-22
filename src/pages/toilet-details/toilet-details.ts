@@ -27,7 +27,7 @@ export class ToiletDetailsPage {
   toilet: any;
   photoURL: string = 'assets/imgs/logo.png';
 
-  isReserved: boolean;
+  isAvailable: boolean;
 
   isReservedObservable: any;
 
@@ -59,7 +59,7 @@ export class ToiletDetailsPage {
     this.isReservedObservable = toiletProvider
       .getToiletById(this.navParams.get('hit').key)
       .subscribe(t => {
-        this.isReserved = !!t.reserved_by;
+        this.isAvailable = t.status === 'Available';
         this.status = t.status;
         if (t.status === 'Available') {
           this.statusColor = '#00E640';

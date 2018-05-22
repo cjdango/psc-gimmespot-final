@@ -115,7 +115,7 @@ export class ToiletDetailsPage {
             });
 
             const geoQuery = this.geofire.query({
-              radius: .03,
+              radius: .015,
               center: this.navParams.get('hit').location
             });
             geoQuery.on('key_entered', (key, location, distance) => {

@@ -20,6 +20,7 @@ import { ToiletProvider } from '../providers/toilet/toilet';
 import remove from 'lodash/remove';
 import GeoFire from 'geofire';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html',
@@ -41,7 +42,9 @@ export class MyApp {
     public pictureProvider: PictureProvider,
     public geoProvider: GeoProvider,
     public geolocation: Geolocation,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public toastCtrl: ToastController
+
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -61,25 +64,53 @@ export class MyApp {
 
         toiletProvider.getUserToilets().subscribe(toilets => {
           this.reservedToilets = remove(toilets, t => !!t.reserved_by);
+          
           this.reservedToilets.forEach(resToilet => {
             const runningManRef = db.list(`running_men`);
             const geofire = new GeoFire(runningManRef.query.ref);
-
-            const geoQuery = geofire.query({
+            const geoQuery1 = geofire.query({
               radius: .03,
               center: resToilet.location
             });
 
-            geoQuery.on('key_entered', (key, location, distance) => {
-              alert(`${resToilet.guestName} is ${Number(distance*1000).toFixed(2)}m away from ${resToilet.name}`);
+            const geoQuery2 = geofire.query({
+              radius: .015,
+              center: resToilet.location
+            });
+
+            geoQuery1.on('key_entered', (key, location, distance) => {
+              geoQuery1.cancel();
+              if (distance > .015) {
+                this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+              }
+            });
+
+            geoQuery2.on('key_entered', (key, location, distance) => {
+              geoQuery2.cancel();
               geofire.remove(key);
-            })
+              this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);               
+            });
+
           });
         });
       }
     }, () => this.rootPage = LoginPage);
 
 
+  }
+
+  presentToast(message: string) {
+    let toast = this.toastCtrl.create({
+      message,
+      duration: 3000,
+      showCloseButton: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
   }
 
 

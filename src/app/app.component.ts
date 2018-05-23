@@ -29,7 +29,7 @@ import { ToastController } from 'ionic-angular';
 export class MyApp {
   rootPage: any;
 
-  reservedToilets: Array<any>;
+  reservedToilets: Array<any> = [];
   reservedToiletsLoc: Array<any>;
 
 
@@ -62,37 +62,73 @@ export class MyApp {
           this.geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude])
         });
 
-        toiletProvider.getUserToilets().subscribe(toilets => {
-          this.reservedToilets = remove(toilets, t => !!t.reserved_by);
-          
-          this.reservedToilets.forEach(resToilet => {
-            const runningManRef = db.list(`running_men`);
-            const geofire = new GeoFire(runningManRef.query.ref);
-            const geoQuery1 = geofire.query({
-              radius: .03,
-              center: resToilet.location
-            });
-
-            const geoQuery2 = geofire.query({
-              radius: .015,
-              center: resToilet.location
-            });
-
-            geoQuery1.on('key_entered', (key, location, distance) => {
-              geoQuery1.cancel();
-              if (distance > .015) {
-                this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+        const toiletSubscriber =
+          toiletProvider.getUserToilets().subscribe(toilets => {
+            this.reservedToilets.forEach(resToilet => {
+              try {
+                resToilet.resToiletSubscriber.unsubscribe();
+              } catch (error) {
+                console.log(error)
               }
-            });
+            })
 
-            geoQuery2.on('key_entered', (key, location, distance) => {
-              geoQuery2.cancel();
-              geofire.remove(key);
-              this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);               
+            this.reservedToilets = remove(toilets, t => t.hasRunningMan);
+            console.log(this.reservedToilets)
+
+            this.reservedToilets.map(resToilet => {
+            //   // const runningManRef = db.list(`running_men`);
+            //   // const geofire = new GeoFire(runningManRef.query.ref);
+            //   // const geoQuery1 = geofire.query({
+            //   //   radius: .03,
+            //   //   center: resToilet.location
+            //   // });
+
+            //   // const geoQuery2 = geofire.query({
+            //   //   radius: .015,
+            //   //   center: resToilet.location
+            //   // });
+
+            //   // geoQuery1.on('key_entered', (key, location, distance) => {
+            //   //   geoQuery1.cancel();
+            //   //   if (distance > .015) {
+            //   //     this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+            //   //   }
+            //   // });
+
+            //   // geoQuery2.on('key_entered', (key, location, distance) => {
+            //   //   geoQuery2.cancel();
+            //   //   geofire.remove(key);
+            //   //   this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);               
+            //   // });
+
+              const resToiletSubscriber =
+                db.object(`running_men/${resToilet.key}/l`).valueChanges().subscribe(pos => {
+                  console.log('runningManSubscriber')
+                  const lat: number = pos[0];
+                  const lng: number = pos[1];
+                  const userPos: [number, number] = [lat, lng];
+                  const toiletPos: [number, number] = resToilet.location;
+
+                  const distance: number = GeoFire.distance(userPos, toiletPos);
+
+                  if (distance <= .015) {
+                    this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+                    resToilet.hasRunningMan = false;
+                    resToiletSubscriber.unsubscribe();
+                  }
+
+                });
+
+               return {
+                 ...resToilet,
+                 resToiletSubscriber
+               }
+
             });
 
           });
-        });
+
+
       }
     }, () => this.rootPage = LoginPage);
 

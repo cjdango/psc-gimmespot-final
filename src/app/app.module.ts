@@ -36,6 +36,7 @@ import { PictureProvider } from '../providers/picture/picture';
 import { GeoProvider } from '../providers/geo/geo';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { MessagesPage } from '../pages/messages/messages';
+import { RunningManProvider } from '../providers/running-man/running-man';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { MessagesPage } from '../pages/messages/messages';
     MapProvider,
     ToiletProvider,
     PictureProvider,
-    GeoProvider
+    GeoProvider,
+    RunningManProvider
   ]
 })
 export class AppModule { }

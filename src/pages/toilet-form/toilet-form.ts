@@ -123,7 +123,9 @@ export class ToiletFormPage implements OnInit, OnDestroy {
     this.toilet.owner = this.authProvider.currentUserDisplayName;
 
     const key = this.db.list('/toilets')
-      .push({...this.toilet, status: 'Available'}).key;
+      .push({ ...this.toilet, status: 'Available' }).key;
+
+    this.db.object(`running_men/${key}/l`).set([0, 0]);
 
     try {
       await this.pictureProvider.addPicture(`toilets/${key}/toiletPicture`, this.pictureData)

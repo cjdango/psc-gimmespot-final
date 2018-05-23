@@ -40,6 +40,7 @@ export class ToiletProvider {
   }
 
   deleteToilet(key: string) {
+    this.db.object(`/running_men/${key}`).remove();
     return this.db.object(`/toilets/${key}`).remove();
   }
 

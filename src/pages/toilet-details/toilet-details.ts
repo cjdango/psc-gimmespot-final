@@ -6,10 +6,9 @@ import { ReviewsPage } from '../reviews/reviews';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ToiletProvider } from '../../providers/toilet/toilet';
 
-import GeoFire from 'geofire';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ProfilePage } from '../profile/profile';
+import { RunningManProvider } from '../../providers/running-man/running-man';
 
 /**
  * Generated class for the ToiletDetailsPage page.
@@ -37,8 +36,6 @@ export class ToiletDetailsPage {
   status: string;
   statusColor: string;
 
-  geofire: GeoFire;
-
   isOwner: boolean;
 
   constructor(
@@ -47,9 +44,9 @@ export class ToiletDetailsPage {
     public viewCtrl: ViewController,
     public authProvider: AuthProvider,
     public toiletProvider: ToiletProvider,
-    public db: AngularFireDatabase,
     public geolocation: Geolocation,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public runningManProvider: RunningManProvider
   ) {
     this.toilet = navParams.get('hit').toilet;
     this.photoURL = navParams.get('hit').photoURL;
@@ -70,7 +67,7 @@ export class ToiletDetailsPage {
         }
       });
 
-    this.geofire = new GeoFire(db.list('/running_men').query.ref);
+   
   }
 
   ionViewWillLeave() {
@@ -80,53 +77,15 @@ export class ToiletDetailsPage {
   reserve() {
     // update db
     const toiletKey = this.navParams.get('hit').key;
+    const center = this.navParams.get('hit').location;
+
     this.toiletProvider.updateToilet(toiletKey, {
       reserved_by: this.authProvider.currentUserId,
       guestName: this.authProvider.currentUserDisplayName,
       status: 'Reserved'
     });
 
-    this.presentConfirm();
-  }
-
-  private presentConfirm() {
-    let alert = this.alertCtrl.create({
-      title: 'Share Distance?',
-      message: 'The host will be notified when you are 30m away from the toilet',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Share',
-          handler: () => {
-            console.log(this.navParams.get('hit'))
-
-            const toiletKey = this.navParams.get('hit').key;
-
-            this.posObservable = this.geolocation.watchPosition({ enableHighAccuracy: true });
-
-            this.posSubscriber = this.posObservable.subscribe(pos => {
-              this.geofire.set(toiletKey, [pos.coords.latitude, pos.coords.longitude]);
-            });
-
-            const geoQuery = this.geofire.query({
-              radius: .015,
-              center: this.navParams.get('hit').location
-            });
-            geoQuery.on('key_entered', (key, location, distance) => {
-              this.posSubscriber.unsubscribe();
-              geoQuery.cancel();
-            });
-          }
-        }
-      ]
-    });
-    alert.present();
+    this.runningManProvider.presentAlert(toiletKey, center);
   }
 
   onConvoPage() {

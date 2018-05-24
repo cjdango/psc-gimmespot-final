@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ToiletProvider } from '../../providers/toilet/toilet';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { ProfilePage } from '../profile/profile';
+import { ToiletDetailsPage } from '../toilet-details/toilet-details';
+import { PictureProvider } from '../../providers/picture/picture';
 
 /**
  * Generated class for the ReservationsPage page.
@@ -27,7 +29,9 @@ export class ReservationsPage {
     public navParams: NavParams,
     public toiletProvider: ToiletProvider,
     public barcodeScanner: BarcodeScanner,
-    public db: AngularFireDatabase
+    public db: AngularFireDatabase,
+    public modalCtrl: ModalController,
+    public pictureProvider: PictureProvider
   ) {
   }
 
@@ -45,6 +49,7 @@ export class ReservationsPage {
                 reservation.guestId = t.reserved_by;
                 reservation.guestPhotoURL = user.photoURL;
                 reservation.guestName = user.name;
+                reservation.photoURL = this.pictureProvider.getDownloadURL(`toilets/${t.key}/toiletPicture`);
               }
             });
 
@@ -84,7 +89,17 @@ export class ReservationsPage {
   }
 
   showProfile(host_id: string) { // guest_id jd ni siya
-    this.navCtrl.push(ProfilePage, {host_id, from_toilet: true});
+    this.navCtrl.push(ProfilePage, { host_id, from_toilet: true });
+  }
+
+  toiletDetails(reservation) {
+    const hit = {
+      key: reservation.key,
+      toilet: reservation,
+      photoURL: reservation.photoURL
+    }
+    const modal = this.modalCtrl.create(ToiletDetailsPage, { hit });
+    modal.present();
   }
 
   close(reservation) {

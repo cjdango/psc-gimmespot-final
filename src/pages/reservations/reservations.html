@@ -33,7 +33,7 @@
     </ion-item>
 
     <ion-card-content>
-      <h2><span ion-text color="ash">Toilet reserved:</span> {{res.name}}</h2>
+      <h2><span ion-text color="ash">Toilet reserved:</span> <span ion-text color="mountain" (click)="toiletDetails(res)">{{res.name}}</span></h2>
       <h1 *ngIf="res.isGuestVerified" text-center ion-text color="secondary">VERIFIED GUEST</h1>
     </ion-card-content>
 

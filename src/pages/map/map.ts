@@ -19,6 +19,7 @@ import { PictureProvider } from '../../providers/picture/picture';
 import { ToiletDetailsPage } from '../toilet-details/toilet-details';
 import { RunningManProvider } from '../../providers/running-man/running-man';
 import { AuthProvider } from '../../providers/auth/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 /**
  * Generated class for the MapPage page.
  *
@@ -59,7 +60,8 @@ export class MapPage {
     public pictureProvider: PictureProvider,
     public modalCtrl: ModalController,
     public runningManProvider: RunningManProvider,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    public db: AngularFireDatabase
   ) {
 
   }
@@ -241,6 +243,12 @@ export class MapPage {
             guestName: this.authProvider.currentUserDisplayName,
             status: 'Reserved'
           });
+
+          this.db.list(`reserved_toilets/${hit.toilet.owner_id}`).set(key, {
+            toiletName: hit.toilet.name,
+            timestamp: Date.now() / 1000
+          });
+
           this.runningManProvider.presentAlert(key, location);
         });
 

@@ -36,6 +36,7 @@
       <ion-label text-center stacked>Write a comment</ion-label>
       <ion-input type="text" [(ngModel)]="comment"></ion-input>
     </ion-item>
+    <rating text-center [(ngModel)]="rating"></rating>
     <div text-center margin-bottom>
       <button ion-button (click)="send()">Submit</button>
     </div>
@@ -53,6 +54,7 @@
         </ion-avatar>
         <h2>{{review.from.name}}</h2>
         <p>{{review.date}}</p>
+        <rating item-end [(ngModel)]="review.rating"></rating>
       </ion-item>
 
       <ion-card-content>

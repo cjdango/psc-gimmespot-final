@@ -23,6 +23,8 @@ export class ProfilePage {
 
   isHost: boolean;
 
+  rating: number = 5;
+
   profilePic: string = 'assets/imgs/logo.png';
   profileEmail: string;
   profileName: string;
@@ -68,7 +70,8 @@ export class ProfilePage {
         photoURL: this.authProvider.authState.photoURL
       },
       date: new Date().toDateString(),
-      comment: this.comment
+      comment: this.comment,
+      rating: this.rating
     })
     this.comment = '';
   }

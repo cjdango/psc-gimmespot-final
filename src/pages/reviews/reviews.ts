@@ -23,6 +23,8 @@ export class ReviewsPage {
 
   isHost: boolean;
 
+  rating: number = 5;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -58,7 +60,8 @@ export class ReviewsPage {
         photoURL: this.authProvider.authState.photoURL
       },
       date: new Date().toDateString(),
-      comment: this.comment
+      comment: this.comment,
+      rating: this.rating
     })
     this.comment = '';
   }

@@ -78,11 +78,11 @@ export class AuthProvider {
   }
 
   //// Email/Password Auth ////
-  emailSignUp(email: string, password: string, displayName: string, navCtrl: NavController) {
+  emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((auth) => {
         this.authState = auth;
-        this.updateUserData();
+        // this.updateUserData();
       })
       .catch(error => console.log(error));
   }
@@ -91,7 +91,7 @@ export class AuthProvider {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((auth) => {
         this.authState = auth;
-        this.updateUserData();
+        // this.updateUserData();
       })
       .catch(error => console.log(error));
   }
@@ -103,7 +103,7 @@ export class AuthProvider {
   }
 
   //// Helpers ////
-  updateUserData(photoURL = ''): void {
+  updateUserData(photoURL = '', address='', landmark='', phone=''): void {
     // Writes user name and email to firestore
     // useful if your app displays information about users or for admin features
     let path = `users/${this.currentUserId}`; // Endpoint on firebase
@@ -111,7 +111,8 @@ export class AuthProvider {
     let data = {
       email: this.authState.email,
       name: this.authState.displayName,
-      photoURL: photoURL ? photoURL : this.authState.photoURL
+      photoURL: photoURL ? photoURL : this.authState.photoURL,
+      address, landmark, phone
     }
 
     this.db.object(path).update(data)

@@ -12,6 +12,9 @@ export class RegisterPage {
   email: string;
   password: string;
   displayName: string;
+  address: string;
+  phone: string;
+  landmark: string;
 
   pictureData: string;
 
@@ -31,7 +34,7 @@ export class RegisterPage {
 
   async emailSignUp() {
     await this.authProvider
-      .emailSignUp(this.email, this.password, this.displayName, this.navCtrl);
+      .emailSignUp(this.email, this.password);
 
     const userId = this.authProvider.currentUserId;
 
@@ -44,7 +47,7 @@ export class RegisterPage {
             photoURL,
             displayName: this.displayName
           }).then((a) => {
-            this.authProvider.updateUserData(photoURL);
+            this.authProvider.updateUserData(photoURL, this.address, this.landmark, this.phone);
             alert('Updated: displayName, photoURL');
           });
         }

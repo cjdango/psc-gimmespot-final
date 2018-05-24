@@ -28,6 +28,9 @@ export class ProfilePage {
   profilePic: string = 'assets/imgs/logo.png';
   profileEmail: string;
   profileName: string;
+  profileAddress: string;
+  profileLandmark: string;
+  profilePhone: string;
 
   userReviewsRef: AngularFireList<{}>;
 
@@ -39,21 +42,26 @@ export class ProfilePage {
   ) {
     this.qrData = authProvider.currentUserId;
 
+    let userId;
+
     if (navParams.get('from_toilet')) {
-      this.isHost = navParams.get('host_id') === authProvider.currentUserId;
-      this.userReviewsRef = db.list(`user_reviews/${navParams.get('host_id')}`);
-      db.object(`users/${navParams.get('host_id')}`).valueChanges().subscribe((user: any) => {
-        this.profilePic = user.photoURL;
-        this.profileEmail = user.email;
-        this.profileName = user.name;
-      });
+      userId = navParams.get('host_id');      
     } else {
-      this.isHost = true;
-      this.userReviewsRef = db.list(`user_reviews/${authProvider.currentUserId}`);
-      this.profilePic = this.authProvider.authState.photoURL;
-      this.profileEmail = this.authProvider.authState.email;
-      this.profileName = this.authProvider.currentUserDisplayName;
+      userId = authProvider.currentUserId;
     }
+    this.isHost = userId === authProvider.currentUserId;
+
+    this.userReviewsRef = db.list(`user_reviews/${userId}`);
+
+    db.object(`users/${userId}`).valueChanges().subscribe((user: any) => {
+      this.profilePic = user.photoURL;
+      this.profileEmail = user.email;
+      this.profileName = user.name;
+      this.profileAddress = user.address;
+      this.profileLandmark = user.landmark;
+      this.profilePhone = user.phone;
+    });
+
 
     this.reviews = this.listReviews();
 

@@ -22,9 +22,21 @@
   
   <ion-card margin-bottom>
     <ion-list>
-      <ion-item color="mountain" padding-left>
+      <ion-item *ngIf="profileEmail" color="mountain" padding-left>
         <ion-icon name="mail" item-start></ion-icon>
         {{profileEmail}}
+      </ion-item>
+      <ion-item *ngIf="profileAddress"  color="mountain" padding-left>
+        <ion-icon name="home" item-start></ion-icon>
+        {{profileAddress}}
+      </ion-item>
+      <ion-item *ngIf="profileLandmark"  color="mountain" padding-left>
+        <ion-icon name="flag" item-start></ion-icon>
+        {{profileLandmark}}
+      </ion-item>
+      <ion-item *ngIf="profilePhone" color="mountain" padding-left>
+        <ion-icon name="phone-portrait" item-start></ion-icon>
+        {{profilePhone}}
       </ion-item>
     </ion-list>
   </ion-card>

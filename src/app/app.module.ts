@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera } from '@ionic-native/camera';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login'
@@ -90,6 +91,7 @@ import { RunningManProvider } from '../providers/running-man/running-man';
     Geolocation,
     Camera,
     BarcodeScanner,
+    LocalNotifications,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider,
     MapProvider,

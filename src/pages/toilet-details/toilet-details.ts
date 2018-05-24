@@ -9,6 +9,7 @@ import { ToiletProvider } from '../../providers/toilet/toilet';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ProfilePage } from '../profile/profile';
 import { RunningManProvider } from '../../providers/running-man/running-man';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the ToiletDetailsPage page.
@@ -46,7 +47,8 @@ export class ToiletDetailsPage {
     public toiletProvider: ToiletProvider,
     public geolocation: Geolocation,
     public alertCtrl: AlertController,
-    public runningManProvider: RunningManProvider
+    public runningManProvider: RunningManProvider,
+    public db: AngularFireDatabase
   ) {
     this.toilet = navParams.get('hit').toilet;
     this.photoURL = navParams.get('hit').photoURL;
@@ -67,7 +69,7 @@ export class ToiletDetailsPage {
         }
       });
 
-   
+
   }
 
   ionViewWillLeave() {
@@ -78,12 +80,19 @@ export class ToiletDetailsPage {
     // update db
     const toiletKey = this.navParams.get('hit').key;
     const center = this.navParams.get('hit').location;
+    const owner_id = this.toilet.owner_id;
 
     this.toiletProvider.updateToilet(toiletKey, {
       reserved_by: this.authProvider.currentUserId,
       guestName: this.authProvider.currentUserDisplayName,
       status: 'Reserved'
     });
+
+    this.db.list(`reserved_toilets/${owner_id}`).set(toiletKey, {
+      toiletName: this.toilet.name,
+      timestamp: Date.now() / 1000
+    });
+    console.log('reserved_toilet')
 
     this.runningManProvider.presentAlert(toiletKey, center);
   }

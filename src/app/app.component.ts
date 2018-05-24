@@ -21,6 +21,8 @@ import remove from 'lodash/remove';
 import GeoFire from 'geofire';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { ToastController } from 'ionic-angular';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { DataSnapshot } from '@firebase/database';
 
 @Component({
   templateUrl: 'app.html',
@@ -43,7 +45,8 @@ export class MyApp {
     public geoProvider: GeoProvider,
     public geolocation: Geolocation,
     public db: AngularFireDatabase,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public localNotif: LocalNotifications
 
   ) {
     platform.ready().then(() => {
@@ -62,44 +65,73 @@ export class MyApp {
           this.geoProvider.getLocations(1, [pos.coords.latitude, pos.coords.longitude])
         });
 
+        db.database.ref(`reserved_toilets/${auth.uid}`).limitToLast(1).on('child_added', (dataSnap) => {
+          console.log((Date.now()/1000) - dataSnap.child('timestamp').val())
+          if ((Date.now()/1000) - dataSnap.child('timestamp').val() <= 5) {
+            this.localNotif.schedule({
+              id: 1,
+              text: `${dataSnap.child('toiletName').val()} is reserved!!`,
+              timeoutAfter: 500
+            });
+          }
+        });
+
+
         const toiletSubscriber =
           toiletProvider.getUserToilets().subscribe(toilets => {
             this.reservedToilets.forEach(resToilet => {
               try {
                 resToilet.resToiletSubscriber.unsubscribe();
+                resToilet.resToiletSubscriber2.unsubscribe();
               } catch (error) {
                 console.log(error)
               }
             })
 
             this.reservedToilets = remove(toilets, t => t.hasRunningMan);
-            console.log(this.reservedToilets)
 
             this.reservedToilets.map(resToilet => {
-            //   // const runningManRef = db.list(`running_men`);
-            //   // const geofire = new GeoFire(runningManRef.query.ref);
-            //   // const geoQuery1 = geofire.query({
-            //   //   radius: .03,
-            //   //   center: resToilet.location
-            //   // });
+              //   // const runningManRef = db.list(`running_men`);
+              //   // const geofire = new GeoFire(runningManRef.query.ref);
+              //   // const geoQuery1 = geofire.query({
+              //   //   radius: .03,
+              //   //   center: resToilet.location
+              //   // });
 
-            //   // const geoQuery2 = geofire.query({
-            //   //   radius: .015,
-            //   //   center: resToilet.location
-            //   // });
+              //   // const geoQuery2 = geofire.query({
+              //   //   radius: .015,
+              //   //   center: resToilet.location
+              //   // });
 
-            //   // geoQuery1.on('key_entered', (key, location, distance) => {
-            //   //   geoQuery1.cancel();
-            //   //   if (distance > .015) {
-            //   //     this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
-            //   //   }
-            //   // });
+              //   // geoQuery1.on('key_entered', (key, location, distance) => {
+              //   //   geoQuery1.cancel();
+              //   //   if (distance > .015) {
+              //   //     this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+              //   //   }
+              //   // });
 
-            //   // geoQuery2.on('key_entered', (key, location, distance) => {
-            //   //   geoQuery2.cancel();
-            //   //   geofire.remove(key);
-            //   //   this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);               
-            //   // });
+              //   // geoQuery2.on('key_entered', (key, location, distance) => {
+              //   //   geoQuery2.cancel();
+              //   //   geofire.remove(key);
+              //   //   this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);               
+              //   // });
+
+              const resToiletSubscriber2 =
+                db.object(`running_men/${resToilet.key}/l`).valueChanges().subscribe(pos => {
+                  console.log('runningManSubscriber')
+                  const lat: number = pos[0];
+                  const lng: number = pos[1];
+                  const userPos: [number, number] = [lat, lng];
+                  const toiletPos: [number, number] = resToilet.location;
+
+                  const distance: number = GeoFire.distance(userPos, toiletPos);
+
+                  if (distance <= .030 && distance > .015) {
+                    this.presentToast(`${resToilet.guestName} is ${Number(distance * 1000).toFixed(2)}m away from ${resToilet.name}`);
+                    resToiletSubscriber2.unsubscribe();
+                  }
+
+                });
 
               const resToiletSubscriber =
                 db.object(`running_men/${resToilet.key}/l`).valueChanges().subscribe(pos => {
@@ -119,10 +151,11 @@ export class MyApp {
 
                 });
 
-               return {
-                 ...resToilet,
-                 resToiletSubscriber
-               }
+              return {
+                ...resToilet,
+                resToiletSubscriber,
+                resToiletSubscriber2
+              }
 
             });
 

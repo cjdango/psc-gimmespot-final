@@ -70,6 +70,11 @@ export class ReservationsPage {
     this.barcodeScanner.scan().then(res => {
       if (userKey === res.text) {
         this.toiletProvider.updateToilet(reservation.key, { isGuestVerified: true, status: 'Occupied' });
+        console.log('userKey', userKey);
+        console.log('reservationKey', reservation.key);
+        this.db.object(`reserved_toilets/${reservation.owner_id}/${reservation.key}`).remove()
+          .then(() => console.log(`removed`))
+          .catch((err) => console.log(err));
       } else {
         alert('Stranger not verified!!!');
       }
